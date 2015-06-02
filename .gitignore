@@ -14,3 +14,7 @@
 
 config/database.yml
 .idea
+
+#Local gemset and ruby version
+.ruby-gemset.06*
+.ruby-version.06*
