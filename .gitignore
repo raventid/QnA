@@ -18,3 +18,6 @@ config/database.yml
 #Local gemset and ruby version
 .ruby-gemset.06*
 .ruby-version.06*
+
+#Add sublimetext project files
+qna.sublime*

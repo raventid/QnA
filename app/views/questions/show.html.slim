@@ -1,0 +1,24 @@
+h3
+  = @question.title
+p
+  = @question.body
+br
+
+- @question.answers.each do |answer|
+  - if answer.persisted?
+    p
+     = answer.body
+br
+
+-if @answer
+  -@answer.errors.full_messages.each do |e|
+    p(style="color: red;" )
+      =e
+
+= form_for [@question, Answer.new], method: :post do |f|
+  h4 Добавить ответ
+  = f.label :body, "Знаете ответ - напишите!"
+  = f.text_area :body
+  = f.submit 'Добавить'
+br
+  = link_to 'Посмотреть все вопросы', questions_path
