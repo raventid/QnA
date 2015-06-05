@@ -35,6 +35,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use slim templates
 gem 'slim-rails'
 
+#Add some bootstrap styling
+gem 'bootstrap-sass', '3.2.0.0'
+
+# Use devise for managing users
+gem 'devise'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -51,4 +57,6 @@ end
 
 group :test do
   gem 'shoulda-matchers'
+  gem 'capybara'
+  gem 'launchy'
 end

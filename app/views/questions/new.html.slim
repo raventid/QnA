@@ -1,11 +1,11 @@
 .question-form
   = form_for @question do |f|
-    h3 Задать свой вопрос
+    h3 Ask question
     br
-    = f.label :title, 'Придумайте заголовок'
+    = f.label :title
     = f.text_field :title
 
-    = f.label :body, 'Опишите подробно свою проблему'
+    = f.label :body
     = f.text_area :body
     
-    = f.submit 'Задать вопрос'
+    = f.submit 'Create'
