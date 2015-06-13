@@ -6,7 +6,8 @@ p = link_to 'Delete question', question_path(@question), method: 'delete' if use
 br
 
 .answers
-  = render 'answers'
+  - @question.answers.each do |a|
+    = render partial: 'answers', locals: {a:a}
 br
 
 -if @answer
