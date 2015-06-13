@@ -5,13 +5,8 @@ p
 p = link_to 'Delete question', question_path(@question), method: 'delete' if user_signed_in? && current_user.id == @question.user_id
 br
 
-- @question.answers.each do |a|
-  - if a.persisted?
-    div
-      p
-        = a.body
-      p   
-        = link_to 'Delete my answer', answer_path(a), method: 'delete' if user_signed_in? && current_user.id == a.user_id 
+.answers
+  = render 'answers'
 br
 
 -if @answer
@@ -19,7 +14,7 @@ br
     p(style="color: red;" )
       =e
 - if user_signed_in?
-  = form_for [@question, Answer.new], method: :post do |f|
+  = form_for [@question, Answer.new], method: :post, remote: true do |f|
     h4 Add answer
     = f.label :body, "Know answer? Write here"
     = f.text_area :body
@@ -28,24 +23,3 @@ br
   p To answer the question you need to be signed in.    
 br
   = link_to 'View questions list', questions_path
-
-
-
-/ hr
-/ - if @question.answers.any?
-/   table
-/     - @question.answers.find_each do |a|
-/       tr
-/         td = a.body
-/         td = (link_to 'Delete my answer', answer_path(a), method: 'delete') if (user_signed_in? and (current_user.id == a.user_id))
-/ - else
-/   p No more answers.
-
-/ hr
-/ - if user_signed_in?
-/   = form_for @answer, url: {controller:'answers', action: "create", question_id: @question} do |f|
-/     =f.label :body
-/     =f.text_field :body
-/     =f.submit 'Save answer'
-/ - else
-/   p To answer the question you need to sign in.

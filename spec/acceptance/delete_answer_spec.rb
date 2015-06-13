@@ -4,7 +4,7 @@ feature 'Authenticated user deletes answer', %q{
   User can delete his own answers
 } do
 
-  #вопрос больше не должен отображаться на страничке
+  #Вопрос больше не должен отображаться на страничке
   given(:user) { create(:user) }
   given(:another_user) { create(:user) }
   given(:question) { create(:question) }
