@@ -1,6 +1,0 @@
-- if a.persisted?
-  div
-    p
-      = a.body
-    p   
-      = link_to 'Delete my answer', answer_path(a), method: 'delete' if user_signed_in? && current_user.id == a.user_id 

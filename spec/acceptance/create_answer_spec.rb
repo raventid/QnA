@@ -16,7 +16,7 @@ feature 'Authenticated user creates answer', %q{
     click_on 'Add'
 
     expect(current_path).to eq question_path(question)
-    expect(page).to have_content 'Your answer has been added! Thank you!'
+    #expect(page).to have_content 'Your answer has been added! Thank you!'
     #expect(page).to have_content 'My answer'
     within '.answers' do
       expect(page).to have_content 'My answer'
