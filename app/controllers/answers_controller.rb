@@ -7,10 +7,10 @@ class AnswersController < ApplicationController
     @answer.user = current_user
     if @answer.save
       flash[:notice] = 'Your answer has been added! Thank you!'
-      redirect_to @question
+      #redirect_to @question
     else
       flash[:notice] = 'Can not create answer.'
-      render 'questions/show'
+      #render 'questions/show'
     end
   end
 
