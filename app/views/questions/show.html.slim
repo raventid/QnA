@@ -19,6 +19,7 @@ br
   = form_for [@question, Answer.new], method: :post, remote: true do |f|
     h4 Add answer
     = f.label :body, "Know answer? Write here"
+    .answer-errors
     = f.text_area :body
     = f.submit 'Add'
 -else 

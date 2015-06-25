@@ -3,4 +3,6 @@
     p
       = answer.body
     p   
-      = link_to 'Delete my answer', answer_path(answer), method: 'delete' if user_signed_in? && current_user.id == answer.user_id 
+      = link_to 'Delete my answer', answer_path(answer), method: 'delete' if user_signed_in? && current_user.id == answer.user_id
+    p
+      = link_to 'Edit' if user_signed_in?   

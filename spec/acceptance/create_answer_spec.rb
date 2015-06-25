@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative 'acceptance_helper'
 
 feature 'Authenticated user creates answer', %q{
          To help other users
@@ -29,5 +29,14 @@ feature 'Authenticated user creates answer', %q{
 
     expect(page).to have_content 'To answer the question you need to be signed in.'
     expect(page).to_not have_css ('form')
+  end
+
+  scenario 'User tries to create invalid answer', js: true do
+    sign_in user
+    visit question_path(question)
+
+    click_on 'Add'
+
+    expect(page).to have_content "Body can't be blank"
   end
 end
