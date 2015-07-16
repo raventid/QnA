@@ -36,6 +36,58 @@ RSpec.describe AnswersController, type: :controller do
       it 'render create template' do
         post :create, answer: attributes_for(:invalid_answer), question_id: question, format: :js
         expect(response).to render_template :create
+      end 
+    end
+  end
+
+  
+  describe 'PATCH #update' do
+
+    sign_in_user
+
+    before { answer.update!(user: @user) }
+
+    context 'with valid attributes' do
+
+      it 'update answer in database' do
+        patch :update, question_id: question, id: answer, answer: { body: 'TestTest' }, format: :js
+        answer.reload
+        expect(answer.body).to eq 'TestTest'
+      end
+
+      it 'render template answers/update' do
+        patch :update, question_id: question, id: answer, answer: { body: 'TestTest' }, format: :js
+        expect(response).to render_template 'answers/update'
+      end
+
+    end
+
+    context 'without valid attributes' do
+
+      it 'update answer in database' do
+        patch :update, question_id: question, id: answer, answer: attributes_for(:invalid_answer), format: :js
+        answer.reload
+        expect(answer.body).to eq answer.body
+      end
+
+      it 'render template answers/update' do
+        patch :update, question_id: question, id: answer, answer: attributes_for(:invalid_answer), format: :js
+        expect(response).to render_template 'answers/update'
+      end
+    end
+  end
+
+  describe 'POST #best' do
+
+    sign_in_user
+
+    context 'Author checks best answer' do
+
+      before { question.update!(user: @user) }
+
+      it 'render template answers/best' do
+        post :best, question_id: question, id: answer, answer: { best: true }, format: :js
+        expect(response).to render_template 'answers/best'
       end
     end
   end

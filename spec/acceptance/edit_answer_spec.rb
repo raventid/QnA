@@ -7,8 +7,8 @@ feature 'Answer editing', %q{
 } do
 
 given(:user) { create(:user) }
-given(:question) { create(:question) }
-given!(:answer) { create(:answer, question: question) }
+given!(:question) { create(:question) }
+given!(:answer) { create(:answer, question: question, user: user) }
 
 scenario 'Unauthenticated user try to edit question' do
   visit question_path(question)
@@ -17,24 +17,32 @@ scenario 'Unauthenticated user try to edit question' do
 end
 
 describe 'Authenticated user' do 
-  scenario 'sees link to edit answer' do
-	sign_in user
-	visit question_path(question)
+  before do
+    sign_in user
+    visit question_path(question)
+  end
 
-	within '.answers' do  
+  scenario 'sees link to edit answer' do
+    within '.answers' do  
       expect(page).to have_link 'Edit'
     end
   end
+
   scenario 'tries to edit his answer' do
+    save_and_open_page
     click_on 'Edit'
-    fill_in 'Answer', with: 'edited answer'
+    save_and_open_page
+    within '.answers' do
+      fill_in 'Answer', with: 'edited answer'
+    end
     click_on 'Save'
 
     expect(page).to_not have_content answer.body
     expect(page).to have_content 'edited answer'
     expect(page).to_not have_selector 'textarea'
   end
-	#user see edit if he is the author
+
+  scenario 'user see edit link if he is the author'
   scenario 'tries to edit other users answer'
 end
 end
