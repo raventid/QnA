@@ -29,9 +29,7 @@ describe 'Authenticated user' do
   end
 
   scenario 'tries to edit his answer' do
-    save_and_open_page
     click_on 'Edit'
-    save_and_open_page
     within '.answers' do
       fill_in 'Answer', with: 'edited answer'
     end

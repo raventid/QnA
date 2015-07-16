@@ -5,7 +5,7 @@ class AnswersController < ApplicationController
 
   def create
     @answer = @question.answers.new(answer_params.merge(user: current_user))
-    @flash[:notice] = @answer.save ? 'Your answer has been added! Thank you!' : 'Can not create answer'
+    flash[:notice] = @answer.save ? 'Your answer has been added! Thank you!' : 'Can not create answer'
   end
 
   def update
@@ -16,7 +16,9 @@ class AnswersController < ApplicationController
 
   def destroy
     if @answer.user_id == current_user.id 
-      flash[:notice] = @answer.destroy ? 'Your answer has been deleted' : 'Can not delete the answer.'
+      flash[:notice] = 'Your answer has been deleted' if @answer.destroy  
+    else
+      flash[:alert] = 'Can not delete the answer.'
     end 
   end
 
