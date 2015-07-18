@@ -2,7 +2,7 @@ class Answer < ActiveRecord::Base
   belongs_to :question
   belongs_to :user
 
-  default_scope { order(best: 'DESC', created_at: 'DESC') }
+  default_scope { order(best: 'DESC') }
   
   validates :question_id, presence: true
   validates :user_id, presence: true
