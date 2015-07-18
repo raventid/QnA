@@ -1,9 +1,12 @@
 - if answer.persisted?
   div id="answer-block-#{answer.id}"
-    p
-      = answer.body
+    - if answer.best
+      p.best-answer = answer.body
+    - unless answer.best
+      p = answer.body
+          
     - if user_signed_in? && current_user.id == answer.question.user_id && current_user.id != answer.user_id && !answer.best
-            = link_to 'best', best_question_answer_path(answer.question, answer), method: :post, remote: true
+            = link_to 'best', best_path(answer), method: :post, remote: true
     - if user_signed_in? && current_user.id == answer.user_id
       p
         = link_to 'Delete my answer', answer_path(answer), method: 'delete', remote: true
@@ -16,3 +19,4 @@
           = f.text_area :body
           p
             = f.submit 'Save'
+    hr.style-two

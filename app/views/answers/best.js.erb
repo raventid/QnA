@@ -1,4 +1,4 @@
-$('.answers').html('<%= j render @question.answers.order(best: 'DESC') %>');
+$('.answers').html('<%= j render @answer.question.answers %>');
 <% if flash[:notice] %>
     $('.notice').append('<br/> <%= flash[:notice] %>');
     <% flash[:notice] = '' %>

@@ -1,23 +1,5 @@
-h3
-  = @question.title
-p
-  = @question.body
-p = link_to 'Delete question', question_path(@question), method: 'delete' if user_signed_in? && current_user.id == @question.user_id
-br
-
-- if current_user and @question.user_id == current_user.id
-    li
-      = link_to 'Edit', '', class: 'question-edit-link'
-    li
-      = link_to 'Delete', question_path(@question), method: :delete
-
-= form_for @question, method: :patch, html: { id: "question-edit-form" }, remote: true do |f|
-  .question-error
-  = f.label :body, 'Correct your question'
-  br
-  = f.text_area :body, style: 'width: 100%:'
-  br
-  = f.submit 'Save'
+#question-block
+  = render @question
 
 .answers
   = render @question.answers 

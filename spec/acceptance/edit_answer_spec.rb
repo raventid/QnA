@@ -18,44 +18,42 @@ scenario 'Unauthenticated user try to edit question' do
 end
 
 describe 'Authenticated user' do
-  before do
-
-  end
 
   scenario 'user see edit link if he is the author' do
-		sign_in(user)
-    visit question_path(question)
-
-  	within '.answers' do
-  		expect(page).to have_link 'Edit'
-  	end
-  end
-
-	scenario 'tries to edit other users answer' do
-	  sign_in(ivan)
-    visit question_path(question)
-
-		within '.answers' do
-			expect(page).to_not have_link 'Edit'
-		end
-	end
-
-  scenario 'tries to edit his answer', js: true do
-		sign_in(user)
+    sign_in(user)
     visit question_path(question)
 
     within '.answers' do
-			click_on 'Edit'
+      expect(page).to have_link 'Edit'
+    end
+  end
+
+  scenario 'tries to edit other users answer' do
+    sign_in(ivan)
+    visit question_path(question)
+
+    within '.answers' do
+	expect(page).to_not have_link 'Edit'
+    end
+  end
+
+  scenario 'tries to edit his answer', js: true do
+    sign_in(user)
+    visit question_path(question)
+
+    within '.answers' do
+      click_on 'Edit'
       fill_in 'Answer', with: 'edited answer'
-			click_on 'Save'
+      click_on 'Save'
     end
 
     expect(page).to_not have_content answer.body
     expect(page).to have_content 'edited answer'
 
-		within '.answers' do
-	    expect(page).to_not have_selector 'textarea'
-		end
+    within '.answers' do
+      expect(page).to_not have_selector 'textarea'
+    end
   end
 end
+
 end

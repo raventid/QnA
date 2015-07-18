@@ -1,14 +1,12 @@
 <% if @question.errors.present? %>
   <% @question.errors.full_messages.each do |message| %>
-    $('.question-errors').html('<%= j message %>');
+	  $('#question-block .question-errors').append('<%= j message %>');
   <% end %>
 <% else %>
-  $('#question-id-<%= @question.id %>').replaceWith("<%= j render partial: 'questions/question', locals: {question: @question} %>");
-  $('.edit-question-link').click(function (e) {
-      e.preventDefault();
-      $(this).hide();
-      question_id = $(this).data('questionId');
-      $('form#edit-question-' + question_id).show();
-  });
-<% end %> 
-
+      $('#question-block').html('<%= j render partial: 'question', object: @question %>');
+      $('.edit-question-link').click(function(e) {
+        e.preventDefault();
+        $(this).hide();
+        $('form#edit-question').show();
+      });
+<% end %>

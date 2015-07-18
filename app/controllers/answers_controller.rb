@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_question, only: [:create, :best]
+  before_action :load_question, only: [:create]
   before_action :load_answer, only: [:best, :destroy, :update]
 
   def create
@@ -23,7 +23,7 @@ class AnswersController < ApplicationController
   end
 
   def best
-    if @question.user_id == current_user.id
+    if @answer.question.user_id == current_user.id
       @answer.best_answer
       flash[:notice] = 'Best answer has been choosen'
     end

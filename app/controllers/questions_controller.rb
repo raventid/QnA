@@ -29,7 +29,11 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    flash[:notice] = @question.update(question_params) ? "Updated succesfully" : "Can not update question"
+    if @question.update(question_params)
+      flash[:notice] = "Updated succesfully"
+    else 
+      flash[:alert] = "Can not update question"
+    end
   end
 
   def destroy

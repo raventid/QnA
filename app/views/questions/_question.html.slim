@@ -1,0 +1,19 @@
+h3
+  = @question.title
+p
+  = @question.body
+
+- if user_signed_in? && @question.user_id == current_user.id
+    p
+      = link_to 'Edit', '', class: 'edit-question-link'
+      | &nbsp; 
+      = link_to 'delete', question_path(@question), method: :delete
+
+= form_for @question, method: :patch, html: { id: "edit-question" }, remote: true do |f|
+  .question-errors
+  = f.label :body, 'Correct your question'
+  br
+  = f.text_area :body, style: 'width: 100%:'
+  br
+  = f.submit 'Save'
+hr.style-five
