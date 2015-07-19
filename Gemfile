@@ -54,6 +54,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'quiet_assets'
+  gem 'pry-rails'
 end
 
 group :test do

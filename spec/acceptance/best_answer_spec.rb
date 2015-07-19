@@ -52,15 +52,18 @@ feature 'Best answer', %q{
       end
       
       another_good_answer.update!(question: question, body: 'Absolutly another text no one expect to see here')
+      visit question_path(question)
 
       within '.answers' do
         click_on 'best' 
       end
-      
-      within 'answers' do
+#save_and_open_screenshot
+#pry
+
+      within '.answers' do
         expect(page).to have_selector '.best-answer' 
       end
-      
+
       within '.best-answer' do
         expect(page).to have_content another_good_answer.body
 	expect(page).to_not have_content good_answer.body

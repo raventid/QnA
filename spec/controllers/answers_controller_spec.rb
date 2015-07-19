@@ -72,7 +72,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'render template answers/update' do
         patch :update, question_id: question, id: answer, answer: attributes_for(:invalid_answer), format: :js
-        expect(response).to render_template 'answers/update'
+        expect(response).to render_template :update
       end
     end
   end
@@ -87,7 +87,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'render template answers/best' do
         post :best, question_id: question, id: answer, answer: { best: true }, format: :js
-        expect(response).to render_template 'answers/best'
+        expect(response).to render_template :best
       end
     end
   end
@@ -100,8 +100,9 @@ RSpec.describe AnswersController, type: :controller do
       end
 
       it 'render template answers/destroy' do
+	sign_in(user)
         delete :destroy, id: answer_of_user, format: :js
-        expect(response).to render_template 'answers/destroy'
+        expect(response).to render_template :destroy
       end
 
     context 'User is NOT the owner of the Answer and can not delete it'
