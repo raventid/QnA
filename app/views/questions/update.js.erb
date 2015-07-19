@@ -3,7 +3,7 @@
 	  $('#question-block .question-errors').append('<%= j message %>');
   <% end %>
 <% else %>
-      $('#question-block').html('<%= j render partial: 'question', object: @question %>');
+      $('#question-block').html('<%= j render @question %>');
       $('.edit-question-link').click(function(e) {
         e.preventDefault();
         $(this).hide();
