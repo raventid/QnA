@@ -7,7 +7,11 @@ RSpec.describe Question, type: :model do
   it { should validate_length_of(:title).is_at_most(150) }
 
   it { should have_many(:answers).dependent(:destroy) }
+  it { should have_many(:attachments) }
   it { should belong_to(:user) }
+
+  it { should accept_nested_attributes_for :attachments }
+
 
   let(:question){ create(:question) }
   let(:answer){ create(:answer, question: question) }
