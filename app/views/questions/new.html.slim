@@ -1,11 +1,16 @@
 .question-form
   = form_for @question do |f|
     h3 Ask question
-    br
-    = f.label :title
-    = f.text_field :title
+    p
+      = f.label :title
+      = f.text_field :title
+    p
+      = f.label :body
+      = f.text_area :body
+    p Attachments:
+    p
+      = f.fields_for :attachments do |a|
+        = a.label :file
+        = a.file_field :file
 
-    = f.label :body
-    = f.text_area :body
-    
     = f.submit 'Create'
