@@ -5,7 +5,8 @@ p
 p Attachments:
 ul
   - @question.attachments.each do |a|
-    li= a.file.file.filename
+    /li= a.file.file.filename
+    li= link_to a.file.identifier, a.file.url
 
 - if user_signed_in? && @question.user_id == current_user.id
     p

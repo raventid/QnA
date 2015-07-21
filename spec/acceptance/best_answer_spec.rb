@@ -57,8 +57,6 @@ feature 'Best answer', %q{
       within '.answers' do
         click_on 'best' 
       end
-#save_and_open_screenshot
-#pry
 
       within '.answers' do
         expect(page).to have_selector '.best-answer' 
