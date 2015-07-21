@@ -4,6 +4,9 @@
       p.best-answer = answer.body
     - unless answer.best
       p = answer.body
+      ul
+      - answer.attachments.each do |a|
+        li= link_to a.file.identifier, a.file.url
           
     - if user_signed_in? && current_user.id == answer.question.user_id && current_user.id != answer.user_id && !answer.best
             = link_to 'best', best_path(answer), method: :post, remote: true
