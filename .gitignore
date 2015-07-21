@@ -25,3 +25,6 @@ qna.sublime*
 #Swap files
 *.swp
 *.swo
+
+#Upload folder
+public/uploads/
