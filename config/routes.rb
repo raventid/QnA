@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   post 'answers/:id/best' => 'answers#best', as: :best
 
+  delete 'attachment/:id' => 'attachments#destroy', as: :remove_attachment 
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
