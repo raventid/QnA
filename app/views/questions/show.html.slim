@@ -2,7 +2,7 @@
   = render @question
 
 .answers
-  = render @question.answers 
+  = render @question.answers
   /- @question.answers.each do |a|
     /= render partial: 'answers', locals: {a:a}
 br
@@ -19,12 +19,12 @@ br
       .answer-errors
       = f.text_area :body
       p
-      = f.fields_for :attachment do |a|
-        = a.label :file 
+      = f.fields_for :attachments do |a|
+        = a.label :file
         = a.file_field :file
       p
       = f.submit 'Add'
--else 
-  p To answer the question you need to be signed in.    
+-else
+  p To answer the question you need to be signed in.
 br
   = link_to 'View questions list', questions_path
