@@ -1,0 +1,19 @@
+//$('#flash-messages').html('<%= j render partial:'layouts/flash' %>').fadeIn(200).delay(15000).fadeOut(400);
+
+<% if user_signed_in? && current_user.id == @attachable.user_id%>
+    <% case @attachment.attachable_type %>
+        <% when 'Question'%>
+            <% if remotipart_submitted? %>
+                $('.question').html('<%= j "#{ render partial:'questions/question', locals: {question: @attachable} }" %>');
+            <% else %>
+                $('.question').html('<%= j render partial:'questions/question', locals: {question: @attachable} %>');
+            <% end %>
+        <% when 'Answer'%>
+            <% if remotipart_submitted? %>
+                $('.question').html('<%= j "#{ render partial:'questions/question', locals: {question: @attachable} }" %>');
+            <% else %>
+                $('<%= j "#answer-block-#{@attachable.id}" %>').html('<%= j render partial:'questions/uno_answer', locals: {answer: @attachable} %>');
+                $('<%= j "#answer-block-#{@attachable.id} .edit-answer-form" %>').hide();
+            <% end %>
+    <% end %>
+<% end %> 

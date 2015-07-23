@@ -59,7 +59,7 @@ feature 'Add files to question' do
   end
 
   scenario 'User adds file when edit question', js: true do
-    within '.question-block' do
+    within '#question-block' do
       click_on 'Edit'
       sleep(1)
       click_on 'Add file'
@@ -73,4 +73,3 @@ feature 'Add files to question' do
     expect(page).to have_link attach.file.filename, href: attach.file.url
   end
 end 
-

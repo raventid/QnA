@@ -7,7 +7,7 @@ class Question < ActiveRecord::Base
   validates :user_id, presence: true
   validates :title, length: { maximum: 150 }
 
-  accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :attachments, reject_if: :all_blank, allow_destroy: true
 
   def best_answer
     self.answers.where(best: true).first

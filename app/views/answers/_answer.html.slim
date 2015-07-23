@@ -20,6 +20,12 @@
           = f.label :body, 'Answer'
           .answer-errors
           = f.text_area :body
+          .answer-attachments
+            = f.fields_for :attachments do |a|
+              = render 'attachment_fields', f: a
+          br 
+          .add-file-link
+            = link_to_add_association 'Add file', f, :attachments
           p
             = f.submit 'Save'
     hr.style-two
