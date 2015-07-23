@@ -16,7 +16,7 @@ feature 'Delete attached files', %q{
   scenario 'Owner can to delete a file attached to the question', js: true do
     sign_in(owner)
     visit question_path(question)
-    within '.question-block' do
+    within '#question-block' do
       expect(page).to have_content q_attach.file.filename
       click_on 'Delete file'
 
@@ -27,7 +27,7 @@ feature 'Delete attached files', %q{
   scenario 'User can\'t to delete a file attached to the question', js: true do
     sign_in(user)
     visit question_path(question)
-    within '.question-block' do
+    within '#question-block' do
       expect(page).to_not have_content 'Delete file'
     end
   end

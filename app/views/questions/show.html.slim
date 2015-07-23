@@ -18,10 +18,12 @@ br
       = f.label :body, "Know answer? Write here"
       .answer-errors
       = f.text_area :body
-      p
-      = f.fields_for :attachments do |a|
-        = a.label :file
-        = a.file_field :file
+      .answer-attachments
+        = f.fields_for :attachments do |a|
+          = render 'attachment_fields', f: a
+        br 
+        .add-file-link
+          = link_to_add_association 'Add file', f, :attachments
       p
       = f.submit 'Add'
 -else

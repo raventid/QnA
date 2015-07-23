@@ -9,7 +9,7 @@ class Answer < ActiveRecord::Base
   validates :user_id, presence: true
   validates :body, presence: true
 
-  accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :attachments, reject_if: :all_blank, allow_destroy: true
 
   def best_answer
     current_best = self.question.best_answer
