@@ -1,0 +1,15 @@
+    div.row
+      div(class="col-md-3")
+        = form_for [@question, @new_answer], method: :post, remote: true do |f|
+          h4 Add answer
+          = f.label :body, "Know answer? Write here"
+          .answer-errors
+          = f.text_area :body
+          .answer-attachments
+            /= f.fields_for :attachments do |a|
+              = render 'attachment_fields', f: a
+            .add-file-link
+              = link_to_add_association 'Add file', f, :attachments, partial: 'attachments/attachment_fields'
+          p
+          = f.submit 'Add', class: "btn btn-primary"
+

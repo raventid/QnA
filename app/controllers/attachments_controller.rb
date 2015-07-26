@@ -14,4 +14,7 @@ class AttachmentsController < ApplicationController
   def is_owner_of?(obj)
     user_signed_in? && current_user.id == obj.user_id
   end
+
+  def attachment_params
+  end
 end

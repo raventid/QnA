@@ -4,9 +4,4 @@
   <% end %>
 <% else %>
       $('#question-block').html('<%= j render @question %>');
-      $('.edit-question-link').click(function(e) {
-        e.preventDefault();
-        $(this).hide();
-        $('form#edit-question').show();
-      });
 <% end %>
