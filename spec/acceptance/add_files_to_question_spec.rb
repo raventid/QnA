@@ -14,31 +14,34 @@ feature 'Add files', %q{
   end
 
   # We don't need js: true here cause we add just one file to new Question
-  scenario 'User adds file when asks question'do
-    fill_in 'Title', with: 'New question title'
-    fill_in 'Body', with: 'New question body'
-    attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
+  #scenario 'User adds file when asks question'do
+  #  fill_in 'Title', with: 'New question title'
+  #  fill_in 'Body', with: 'New question body'
+  #  attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
 
-    click_on 'Create'
+  #  click_on 'Create'
 
 
-    expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb'
+  #  expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb'
 
-  end
+  #end
 
   
   scenario 'User adds some files when ask question', js: true do
     fill_in 'Title', with: 'My question text'
     fill_in 'Body', with: 'Body question text'
+
     click_on 'Add file'
-    within ('.question-attachments-fields .nested-fields:first-child') do
+    within ('.question-attachments .nested-fields:first-child') do
       attach_file 'Attach file', "#{Rails.root}/spec/spec_helper.rb"
     end
-    sleep(1)
-    within ('.question-attachments-fields .nested-fields:nth-child(2)') do
+    click_on 'Add file'
+    within ('.question-attachments .nested-fields:nth-child(2)') do
       attach_file 'Attach file', "#{Rails.root}/spec/rails_helper.rb"
     end
-    click_on 'Save'
+    click_on 'Create'
+
+    sleep(1)
   
     question = Question.first
     attaches = []
@@ -61,13 +64,14 @@ feature 'Add files to question' do
   scenario 'User adds file when edit question', js: true do
     within '#question-block' do
       click_on 'Edit'
-      sleep(1)
       click_on 'Add file'
-      within '.question-attachments-fields .nested-fields:first-child' do
+      within '.question-attachments .nested-fields:first-child' do
         attach_file 'Attach file', "#{Rails.root}/spec/spec_helper.rb"
       end
       click_on 'Save'
     end
+
+    sleep(1)
 
     attach = Question.first.attachments.first
     expect(page).to have_link attach.file.filename, href: attach.file.url

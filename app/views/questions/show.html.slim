@@ -7,25 +7,9 @@
     /= render partial: 'answers', locals: {a:a}
 br
 
--if @answer
-  -@answer.errors.full_messages.each do |e|
-    p(style="color: red;" )
-      =e
 - if user_signed_in?
   div#create-new-answer
-    = form_for [@question, @answer], method: :post, remote: true do |f|
-      h4 Add answer
-      = f.label :body, "Know answer? Write here"
-      .answer-errors
-      = f.text_area :body
-      .answer-attachments
-        = f.fields_for :attachments do |a|
-          = render 'attachment_fields', f: a
-        br 
-        .add-file-link
-          = link_to_add_association 'Add file', f, :attachments
-      p
-      = f.submit 'Add'
+    = render "new_answer"
 -else
   p To answer the question you need to be signed in.
 br
