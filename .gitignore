@@ -21,3 +21,7 @@ config/database.yml
 
 #Add sublimetext project files
 qna.sublime*
+
+#Swap files
+*.swp
+*.swo

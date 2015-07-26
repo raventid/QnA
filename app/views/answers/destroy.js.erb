@@ -1,0 +1,8 @@
+<% if flash[:alert] %>
+    $('.alert').append('<%= j flash[:alert] %>');
+<% else %>
+    $('.notice').append('<%= j flash[:notice] %>');
+    <%= flash[:notice] = '' %>
+    $("#answer-block-<%= @answer.id %>").remove();
+<% end %>
+

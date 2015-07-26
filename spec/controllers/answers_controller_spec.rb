@@ -18,7 +18,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'assigns answer with current user' do
         post :create, question_id: question, answer: attributes_for(:answer), format: :js
-        assigning_answer = assigns(:answer)  
+        assigning_answer = assigns(:answer)
         expect(assigning_answer.user_id).to eq subject.current_user.id
       end
 
@@ -40,30 +40,76 @@ RSpec.describe AnswersController, type: :controller do
     end
   end
 
+
+  describe 'PATCH #update' do
+
+    sign_in_user
+
+    before { answer.update!(user: @user) }
+
+    context 'with valid attributes' do
+
+      it 'update answer in database' do
+        patch :update, question_id: question, id: answer, answer: { body: 'TestTest' }, format: :js
+        answer.reload
+        expect(answer.body).to eq 'TestTest'
+      end
+
+      it 'render template answers/update' do
+        patch :update, question_id: question, id: answer, answer: { body: 'TestTest' }, format: :js
+        expect(response).to render_template 'answers/update'
+      end
+
+    end
+
+    context 'without valid attributes' do
+
+      it 'update answer in database' do
+        patch :update, question_id: question, id: answer, answer: attributes_for(:invalid_answer), format: :js
+        answer.reload
+        expect(answer.body).to eq answer.body
+      end
+
+      it 'render template answers/update' do
+        patch :update, question_id: question, id: answer, answer: attributes_for(:invalid_answer), format: :js
+        expect(response).to render_template :update
+      end
+    end
+  end
+
+  describe 'POST #best' do
+
+    sign_in_user
+
+    context 'Author checks best answer' do
+
+      before { question.update!(user: @user) }
+
+      it 'render template answers/best' do
+        post :best, question_id: question, id: answer, answer: { best: true }, format: :js
+        expect(response).to render_template :best
+      end
+    end
+  end
+
   describe 'DELETE #destroy' do
     context 'User is owner of the Answer and can delete it' do
       it 'user tries to delete answer' do
         sign_in(user)
-        expect{ delete :destroy, id: answer_of_user }.to change(answer_of_user.question.answers, :count).by(-1)
+        expect{ delete :destroy, id: answer_of_user, format: :js }.to change(answer_of_user.question.answers, :count).by(-1)
       end
 
-      it 'redirect to question path' do
-        sign_in(user)
-        delete :destroy, id: answer_of_user 
-        expect(response).to redirect_to question_path(answer_of_user.question_id) 
+      it 'render template answers/destroy' do
+	sign_in(user)
+        delete :destroy, id: answer_of_user, format: :js
+        expect(response).to render_template :destroy
       end
-    end
-   
+
     context 'User is NOT the owner of the Answer and can not delete it'
       it 'User is NOT owner of the Answer, and can not delete him' do
         sign_in(another_user)
-        expect{ delete :destroy, id: answer_of_user }.to_not change(answer_of_user.question.answers, :count)
+        expect{ delete :destroy, id: answer_of_user, format: :js }.to_not change(answer_of_user.question.answers, :count)
       end
-
-      it 'redirect to question path' do
-        sign_in(another_user)
-        delete :destroy, id: answer_of_user 
-        expect(response).to redirect_to question_path(answer_of_user.question_id) 
-      end
+    end
   end
 end

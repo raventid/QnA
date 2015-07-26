@@ -1,6 +1,22 @@
 - if answer.persisted?
-  div
-    p
-      = answer.body
-    p   
-      = link_to 'Delete my answer', answer_path(answer), method: 'delete' if user_signed_in? && current_user.id == answer.user_id 
+  div id="answer-block-#{answer.id}"
+    - if answer.best
+      p.best-answer = answer.body
+    - unless answer.best
+      p = answer.body
+          
+    - if user_signed_in? && current_user.id == answer.question.user_id && current_user.id != answer.user_id && !answer.best
+            = link_to 'best', best_path(answer), method: :post, remote: true
+    - if user_signed_in? && current_user.id == answer.user_id
+      p
+        = link_to 'Delete my answer', answer_path(answer), method: 'delete', remote: true
+        | &nbsp;  
+        = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
+      p
+        = form_for answer, method: :patch, remote: true, html: { id: "edit-answer-#{answer.id}" } do |f|
+          = f.label :body, 'Answer'
+          .answer-errors
+          = f.text_area :body
+          p
+            = f.submit 'Save'
+    hr.style-two

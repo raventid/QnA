@@ -1,0 +1,12 @@
+$('.answers').html('<%= j render @answer.question.answers %>');
+<% if flash[:notice] %>
+    $('.notice').append('<br/> <%= flash[:notice] %>');
+    <% flash[:notice] = '' %>
+<% end %>
+$('.answer-edit-link').on('click', function(e){
+   e.preventDefault()
+   data = $(this).data('answerId')
+   $('form#edit_answer_' + data).show()
+   $('.answer-delete-link').hide()
+})
+    

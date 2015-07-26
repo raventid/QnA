@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative 'acceptance_helper'
 
 feature 'Authenticated user deletes answer', %q{
   User can delete his own answers
@@ -10,7 +10,7 @@ feature 'Authenticated user deletes answer', %q{
   given(:question) { create(:question) }
   given!(:answer) { create(:answer, question: question, user: user) }
 
-  scenario 'Authenticated user is able to delete his own answer' do
+  scenario 'Authenticated user is able to delete his own answer', js: true do
     sign_in(user)
 
     visit question_path(question)

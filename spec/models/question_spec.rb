@@ -8,4 +8,15 @@ RSpec.describe Question, type: :model do
 
   it { should have_many(:answers).dependent(:destroy) }
   it { should belong_to(:user) }
+
+  let(:question){ create(:question) }
+  let(:answer){ create(:answer, question: question) }
+
+  before { answer.best_answer }
+
+  describe "#best_answer" do
+    it 'returns best answer' do
+      expect(question.best_answer).to eq answer
+    end
+  end
 end

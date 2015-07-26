@@ -5,4 +5,8 @@ class Question < ActiveRecord::Base
   validates :title, :body, presence: true
   validates :user_id, presence: true
   validates :title, length: { maximum: 150 }
+
+  def best_answer
+    self.answers.where(best: true).first
+  end
 end

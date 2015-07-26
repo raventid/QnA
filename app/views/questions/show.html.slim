@@ -1,9 +1,5 @@
-h3
-  = @question.title
-p
-  = @question.body
-p = link_to 'Delete question', question_path(@question), method: 'delete' if user_signed_in? && current_user.id == @question.user_id
-br
+#question-block
+  = render @question
 
 .answers
   = render @question.answers 
@@ -16,11 +12,13 @@ br
     p(style="color: red;" )
       =e
 - if user_signed_in?
-  = form_for [@question, Answer.new], method: :post, remote: true do |f|
-    h4 Add answer
-    = f.label :body, "Know answer? Write here"
-    = f.text_area :body
-    = f.submit 'Add'
+  div#create-new-answer
+    = form_for [@question, Answer.new], method: :post, remote: true do |f|
+      h4 Add answer
+      = f.label :body, "Know answer? Write here"
+      .answer-errors
+      = f.text_area :body
+      = f.submit 'Add'
 -else 
   p To answer the question you need to be signed in.    
 br

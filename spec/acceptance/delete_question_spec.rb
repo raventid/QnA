@@ -11,7 +11,7 @@ feature 'Athenticated user can delete questions' do
 
     visit question_path(question)
 
-    click_on 'Delete question'
+    click_on 'delete'
 
     expect(page).to have_content 'Your Question successfully deleted.'
     expect(page).to_not have_content question.title
@@ -23,14 +23,14 @@ feature 'Athenticated user can delete questions' do
 
     visit question_path(question)
 
-    expect(page).to_not have_link 'Delete question'
+    expect(page).to_not have_link 'delete'
   end
 
   scenario 'Non-authencticated user tries to delete question' do
     
     visit question_path(question)
 
-    expect(page).to_not have_link 'Delete question'
+    expect(page).to_not have_link 'delete'
     
   end
 

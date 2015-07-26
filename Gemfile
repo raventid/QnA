@@ -53,12 +53,15 @@ group :development, :test do
 
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'quiet_assets'
+  gem 'pry-rails'
 end
 
 group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
   gem 'launchy'
-  gem 'selenium-webdriver'
+  #gem 'selenium-webdriver'
+  gem 'capybara-webkit'
   gem 'database_cleaner'
 end
