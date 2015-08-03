@@ -1,6 +1,6 @@
     div.row
       div(class="col-md-3")
-        = form_for [@question, @new_answer], method: :post, remote: true do |f|
+        = form_for [@question, Answer.new], method: :post, remote: true do |f|
           h4 Add answer
           = f.label :body, "Know answer? Write here"
           .answer-errors

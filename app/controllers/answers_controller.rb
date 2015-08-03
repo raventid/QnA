@@ -6,8 +6,6 @@ class AnswersController < ApplicationController
   def create
     @answer = @question.answers.new(answer_params.merge(user: current_user))
     flash[:notice] = @answer.save ? 'Your answer has been added! Thank you!' : 'Can not create answer'
-    @new_answer = @question.answers.build
-    @new_answer.attachments.build
   end
 
   def update
