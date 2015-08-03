@@ -1,0 +1,15 @@
+<% case @attachable.class.name %>
+    <% when 'Question'%>
+        <% if remotipart_submitted? %>
+            $('#question-block').html('<%= j "#{ render partial:'questions/question', object: @attachable }" %>');
+        <% else %>
+            $('#question-block').html('<%= j render partial:'questions/question', object: @attachable %>');
+        <% end %>
+    <% when 'Answer'%>
+        <% if remotipart_submitted? %>
+		$("#answer-block-<%=@attachable.id%>").replaceWith('<%= j "#{ render partial:'answers/answer', object: @attachable }" %>');
+        <% else %>
+		$("#answer-block-<%=@attachable.id%>").replaceWith('<%= j render partial:'answers/answer', object: @attachable %>');
+        <% end %>
+<% end %>
+

@@ -2,24 +2,15 @@
   = render @question
 
 .answers
-  = render @question.answers 
+  = render @question.answers
   /- @question.answers.each do |a|
     /= render partial: 'answers', locals: {a:a}
 br
 
--if @answer
-  -@answer.errors.full_messages.each do |e|
-    p(style="color: red;" )
-      =e
 - if user_signed_in?
   div#create-new-answer
-    = form_for [@question, Answer.new], method: :post, remote: true do |f|
-      h4 Add answer
-      = f.label :body, "Know answer? Write here"
-      .answer-errors
-      = f.text_area :body
-      = f.submit 'Add'
--else 
-  p To answer the question you need to be signed in.    
+    = render "new_answer"
+-else
+  p To answer the question you need to be signed in.
 br
   = link_to 'View questions list', questions_path

@@ -25,6 +25,11 @@ RSpec.describe QuestionsController, type: :controller do
         expect(assigns(:question)).to eq question
       end
 
+      # 'gem cocoon' will generate attachment by clicking on button, so we don't need to create attachment by hand
+      # it 'builds new attachment for answer' do
+      #   expect(assigns(:new_answer).attachments.first).to be_a_new(Attachment) 
+      # end
+
       it { should render_template :show }
     end
 
@@ -38,21 +43,26 @@ RSpec.describe QuestionsController, type: :controller do
         expect(assigns(:question)).to be_a_new(Question)
       end
 
+      # 'gem cocoon' will generate attachment by clicking on button, so we don't need to create attachment by hand for question too
+      # it 'builds new attachment for question' do
+      #    expect(assigns(:question).attachments.first).to be_a_new(Attachment)
+      # end
+
       it { should render_template :new }
     end
 
 
-    describe 'GET #edit' do
-      sign_in_user
+    #describe 'GET #edit' do
+    #  sign_in_user
 
-      before { get :edit, id: question }
+    #  before { get :edit, id: question }
 
-      it 'get a question by id for edit' do
-        expect(assigns(:question)).to eq question
-      end
+    #  it 'get a question by id for edit' do
+    #    expect(assigns(:question)).to eq question
+    #  end
 
-      it { should render_template :edit }
-    end
+    #  it { should render_template 'edit' }
+    #end
 
     describe 'POST #create' do
       
