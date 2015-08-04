@@ -1,34 +1,44 @@
 - if answer.persisted?
   div id="answer-block-#{answer.id}"
-    - if answer.best
-      p.best-answer = answer.body
-    - unless answer.best
-      p = answer.body
-      ul
-      - answer.attachments.each do |a|
-        li id="answer-attachment-#{a.id}"
-          = link_to a.file.identifier, a.file.url
-          |&nbsp;
-          = link_to '<span class="glyphicon glyphicon-remove"></span>'.html_safe+'Delete file', attachment_path(a), method: :delete, remote: true if user_signed_in? && current_user.id == answer.user_id
+    .row
+      div class="col-md-1 col-md-offset-1"
+        div
+          span class="rating"
+            | 123
+        span class="glyphicon glyphicon-thumbs-up"
+        | &nbsp;
+        span class="glyphicon glyphicon-thumbs-down"
+      div class="col-md-10"
+        - if answer.best
+          p.best-answer = answer.body
+        - unless answer.best
+          p = answer.body
+          ul
+          - answer.attachments.each do |a|
+            li id="answer-attachment-#{a.id}"
+              = link_to a.file.identifier, a.file.url
+              |&nbsp;
+              = link_to '<span class="glyphicon glyphicon-remove"></span>'.html_safe+'Delete file', attachment_path(a), method: :delete, remote: true if user_signed_in? && current_user.id == answer.user_id
           
-    - if user_signed_in? && current_user.id == answer.question.user_id && current_user.id != answer.user_id && !answer.best
-            = link_to 'best', best_path(answer), method: :post, remote: true
-    - if user_signed_in? && current_user.id == answer.user_id
-      p
-        = link_to 'Delete my answer', answer_path(answer), method: 'delete', remote: true
-        | &nbsp;  
-        = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
-      div(class="row question-form")
-        div(class="col-md-3")
-          = form_for answer, method: :patch, remote: true, html: { id: "edit-answer-#{answer.id}" } do |f|
-            = f.label :body, 'Answer'
-            .answer-errors
-            = f.text_area :body
-            .answer-attachments
-              /= f.fields_for :attachments do |a|
-                = render 'attachment_fields', f: a
-              .add-file-link
-                = link_to_add_association 'Add file', f, :attachments, partial: 'attachments/attachment_fields'
-            p
-              = f.submit 'Save', class: "btn btn-primary"
+        - if user_signed_in? && current_user.id == answer.question.user_id && current_user.id != answer.user_id && !answer.best
+                = link_to 'best', best_path(answer), method: :post, remote: true
+        - if user_signed_in? && current_user.id == answer.user_id
+          p
+            = link_to 'Delete my answer', answer_path(answer), method: 'delete', remote: true
+            | &nbsp;  
+            = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
+          div(class="row question-form")
+            div(class="col-md-3")
+              = form_for answer, method: :patch, remote: true, html: { id: "edit-answer-#{answer.id}" } do |f|
+                = f.label :body, 'Answer'
+                .answer-errors
+                = f.text_area :body
+                .answer-attachments
+                  /= f.fields_for :attachments do |a|
+                    = render 'attachment_fields', f: a
+                  .add-file-link
+                    = link_to_add_association 'Add file', f, :attachments, partial: 'attachments/attachment_fields'
+                p
+                  = f.submit 'Save', class: "btn btn-primary"
+
     hr.style-two
