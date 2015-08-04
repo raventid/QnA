@@ -4,10 +4,12 @@
       div class="col-md-1 col-md-offset-1"
         div
           span class="rating"
-            | 123
-        span class="glyphicon glyphicon-thumbs-up blue-text"
+            | 123 
+        a title="Good answer" href="#"
+          span class="glyphicon glyphicon-thumbs-up blue-text"
         | &nbsp;
-        span class="glyphicon glyphicon-thumbs-down red-text"
+        a title="Bad answer" href="#"
+          span class="glyphicon glyphicon-thumbs-down red-text"
       div class="col-md-10"
         - if answer.best
           p.best-answer = answer.body
