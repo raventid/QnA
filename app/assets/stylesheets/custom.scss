@@ -37,11 +37,19 @@ textarea {
     margin-bottom: 60px;
 }
 
-.red-text {
+.bad-question-link .colored-text {
     color: red;
 }
 
-.blue-text {
+.good-question-link .colored-text {
+    color: blue;
+}
+
+.bad-answer-link .colored-text {
+    color: red;
+}
+
+.good-answer-link .colored-text {
     color: blue;
 }
 

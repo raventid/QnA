@@ -5,11 +5,11 @@
         div
           span class="rating"
             | 123 
-        a title="Good answer" href="#"
-          span class="glyphicon glyphicon-thumbs-up blue-text"
+        = link_to 'like', method: :post, remote: true, data: { type: :json }, class: "good-answer-link", title: "Good answer"
+          span class="glyphicon glyphicon-thumbs-up colored-text"
         | &nbsp;
-        a title="Bad answer" href="#"
-          span class="glyphicon glyphicon-thumbs-down red-text"
+        = link_to 'dislike', method: :post, remote: true, data: { type: :json }, class: "bad-answer-link", title: "Bad answer"
+          span class="glyphicon glyphicon-thumbs-down colored-text"
       div class="col-md-10"
         - if answer.best
           p.best-answer = answer.body
