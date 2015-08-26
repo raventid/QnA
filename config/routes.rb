@@ -8,6 +8,9 @@ Rails.application.routes.draw do
 
   post 'answers/:id/best' => 'answers#best', as: :best
 
+  post 'votes/like' => 'votes#voting', as: :like
+  delete 'vote/:id' => 'votes#destroy', as: :cancel_vote
+
   resources :attachments, only: [:destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
