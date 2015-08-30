@@ -1,9 +1,10 @@
 class VotesController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_votable, only: [:voting]
+  before_action :load_votable, only: [:create]
 
-  def voting
+  def create
     if !@votable.blank? && is_not_owner_of?(@votable)
+      #
       @vote = Vote.find_or_initialize_by(votable_id: params[:votable_id], votable_type: params[:votable_type], user_id: current_user.id)
 
       if different_votes? && @vote.update(weight: params[:weight])
@@ -34,10 +35,6 @@ class VotesController < ApplicationController
   end
 
   private
-
-  def different_votes?
-    params[:weight].to_i != @vote.weight
-  end
 
   def load_votable
     model_klass = params[:votable_type].classify.constantize

@@ -7,4 +7,15 @@ RSpec.describe User do
   it { should have_many(:questions).dependent(:destroy) }
   it { should have_many(:answers).dependent(:destroy) }
   it { should have_many(:votes).dependent(:destroy) }
+
+  let(:user){ create(:user) }
+  let(:votable){ create(:question) }
+
+  before { user.vote_for }
+
+  describe "#voted_for" do
+    it "returns true if votable was voted by user" do
+      expect(votable).to be question
+    end
+  end
 end

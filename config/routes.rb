@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
+  root to: "questions#index"
+
   devise_for :users
-  resources :questions do
-    resources :answers, shallow: true
+
+  concern :votable do
+    resources :votes, only: [:create, :destroy]
   end
 
-  root to: "questions#index"
+  resources :questions, concerns: :votable do
+    resources :answers, concerns: :votable, shallow: true
+  end
 
   post 'answers/:id/best' => 'answers#best', as: :best
 
@@ -12,7 +17,6 @@ Rails.application.routes.draw do
   #delete 'vote/:id' => 'votes#destroy', as: :cancel_vote
 
   resources :attachments, only: [:destroy]
-  resources :votes, only: [:create, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

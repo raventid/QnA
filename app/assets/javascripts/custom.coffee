@@ -7,9 +7,6 @@ $ ->
   questionlike()
   answerLike()
 
-  $('body').on 'cocoon:after-insert', (e, insertedItem) ->
-    removeFileField()
-
 
 window.answerLike = ->
   $('.answer-like').bind 'ajax:success', (e, data, status, xhr) ->
