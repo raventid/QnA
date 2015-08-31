@@ -2,14 +2,7 @@
   div id="answer-block-#{answer.id}"
     .row
       div class="col-md-1 col-md-offset-1"
-        div
-          span class="rating"
-            | 123 
-        = link_to 'like', method: :post, remote: true, data: { type: :json }, class: "good-answer-link", title: "Good answer"
-          span class="glyphicon glyphicon-thumbs-up colored-text"
-        | &nbsp;
-        = link_to 'dislike', method: :post, remote: true, data: { type: :json }, class: "bad-answer-link", title: "Bad answer"
-          span class="glyphicon glyphicon-thumbs-down colored-text"
+        = render partial: "votes/vote", locals: {votable: answer}
       div class="col-md-10"
         - if answer.best
           p.best-answer = answer.body

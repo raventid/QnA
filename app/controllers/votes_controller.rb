@@ -5,14 +5,14 @@ class VotesController < ApplicationController
   def create
     @vote = Vote.new(value: params[:value], user_id: current_user.id, votable: @votable)
 
-    if !@votable.blank? && current_user.id == @votable.user_id
+    if !@votable.blank? && user_signed_in? && !(current_user.id == @votable.user_id)
       if @vote.save
         render json: { vote: @vote, rating: @votable.rating }
       else
         render json: @vote.errors.full_messages, status: :unprocessable_entity
       end
     else
-      render json: { status: :forbidden }
+      render json: { status: :forbidden }, status: :forbidden
     end
   end
 
@@ -22,14 +22,14 @@ class VotesController < ApplicationController
     votable = @vote.votable
     votable_type = @vote.votable_type
 
-    if current_user.id == votable.user_id
+    if user_signed_in? && (current_user.id == @vote.user_id)
       if @vote.destroy
         render json: { votable_id: votable.id, votable_type: votable_type, rating: votable.rating }
       else
         render json: @vote.errors.full_messages, status: :unprocessable_entity
       end
     else
-      render json: { status: :forbidden }
+      render json: { status: :forbidden }, status: :forbidden
     end
   end
 

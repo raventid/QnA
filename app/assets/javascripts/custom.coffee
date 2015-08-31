@@ -16,7 +16,7 @@ window.answerLike = ->
   .bind 'ajax:error', (e, xhr, status, error) ->
     clearAlertAndNotice()
     answerCancel()
-    $('.alert').append('Ошибка загрузки. Возможно вы уже проголосовали.')
+    $('.alert').append('Error. Perhapes you voted before')
 
 window.questionlike = ->
   $('.question-like').bind 'ajax:success', (e, data, status, xhr) ->
@@ -25,7 +25,7 @@ window.questionlike = ->
     questionCancel()
   .bind 'ajax:error', (e, xhr, status, error) ->
     questionCancel()
-    $('.alert').append('Ошибка загрузки. Возможно вы уже проголосовали.')
+    $('.alert').append('Error. Perhapes you voted before')
 
 window.answerCancel = ->
   $('.answer-cancel').bind 'ajax:success', (e, data, status, xhr) ->
@@ -39,7 +39,7 @@ window.questionCancel = ->
     $('.votes li.cancel').html('')
   .bind 'ajax:error', (e, xhr, status, error) ->
     clearAlertAndNotice()
-    $('.alert').append('Удалить не удалось. Попробуйте позже')
+    $('.alert').append('Cannot delete. Try later.')
 
 window.clearAlertAndNotice = ->
   $('.notice').html('')
