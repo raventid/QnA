@@ -3,12 +3,11 @@ class VotesController < ApplicationController
   before_action :load_votable, only: [:create]
 
   def create
-    if !@votable.blank? && is_not_owner_of?(@votable)
-      #
-      @vote = Vote.find_or_initialize_by(votable_id: params[:votable_id], votable_type: params[:votable_type], user_id: current_user.id)
+    @vote = Vote.new(value: params[:value], user_id: current_user.id, votable: @votable)
 
-      if different_votes? && @vote.update(weight: params[:weight])
-        #stub
+    if !@votable.blank? && current_user.id == @votable.user_id
+      if @vote.save
+        render json: { vote: @vote, rating: @votable.rating }
       else
         render json: @vote.errors.full_messages, status: :unprocessable_entity
       end
@@ -23,9 +22,9 @@ class VotesController < ApplicationController
     votable = @vote.votable
     votable_type = @vote.votable_type
 
-    if is_not_owner_of?(votable)
+    if current_user.id == votable.user_id
       if @vote.destroy
-        render json: {votable_id: votable.id, votable_type: votable_type, rating: votable.rating, canRate: true }
+        render json: { votable_id: votable.id, votable_type: votable_type, rating: votable.rating }
       else
         render json: @vote.errors.full_messages, status: :unprocessable_entity
       end
@@ -37,8 +36,8 @@ class VotesController < ApplicationController
   private
 
   def load_votable
-    model_klass = params[:votable_type].classify.constantize
-    @votable = model_klass.find(params[:votable_id])
+    votable_id = params.keys.detect{ |k| k.to_s =~ /.*_id/ }
+    model_klass = votable_id.chomp('_id').classify.constantize
+    @votable = model_klass.find(params[votable_id])
   end
-
 end

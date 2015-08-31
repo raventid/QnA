@@ -2,23 +2,21 @@ class Vote < ActiveRecord::Base
   belongs_to :user
   belongs_to :votable, polymorphic: true
 
-  validates :user_id, :votable_id, :votable_type, :weight, presence: true
+  validates :user_id, :votable_id, :votable_type, :value, presence: true
   validates :user_id, uniqueness: { scope: [:votable_id, :votable_type] }
-  validates :weight, inclusion: { in: [-1, 1] }
+  validates :value, inclusion: { in: [-1, 1] }
 
   after_commit :add_vote_to_rating, on: [:create, :destroy]
-  after_commit :change_vote_to_rating, on: [:update]
+
+  private
 
   def add_vote_to_rating
-    return if marked_for_destruction? # when deletion throu dependent: :destroy
+    return if marked_for_destruction? # when deletion throw 'dependent: :destroy'
     if destroyed?
-      votable.decrement!(:rating, weight)
+      votable.decrement!(:rating, value)
     else
-      votable.increment!(:rating, weight)
+      votable.increment!(:rating, value)
     end
   end
 
-  def change_vote_to_rating
-    votable.increment!(:rating, weight * 2)
-  end
 end

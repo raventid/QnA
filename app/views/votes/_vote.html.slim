@@ -1,0 +1,11 @@
+div.voting
+  div.rating
+    = votable.rating
+  - if current_user.voted_for?(votable)
+    = link_to 'cancel', vote_path(current_user.get_vote_object(votable)), method: :delete, remote: true, data: { type: :json, confirm: 'Are you sure?'}, class: "vote-cancel"
+  - else
+    = link_to polymorphic_path([votable, :votes], value: 1), method: :post, remote: true, data: { type: :json }, class: "good-question-link", title: "Good question"
+      span class="glyphicon glyphicon-thumbs-up colored-text"
+    | &nbsp;
+    = link_to polymorphic_path([votable, :votes], value: -1), method: :post, remote: true, data: { type: :json }, class: "bad-question-link", title: "Bad question"
+      span class="glyphicon glyphicon-thumbs-down colored-text"
