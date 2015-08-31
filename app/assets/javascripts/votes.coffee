@@ -12,7 +12,7 @@ $ ->
     $(div_vote + " .bad-question-link").hide()
 
   .bind 'ajax:error', (e, xhr, status, error) ->
-    $("div.voting").html(xhr.responseText)
+    $(".notice").html(xhr.responseText)
 
 
 
@@ -26,4 +26,4 @@ $ ->
     $(div_vote + " .bad-question-link").show()
 
   .bind 'ajax:error', (e, xhr, status, error) ->
-    $("div.voting").html(xhr.responseText)
+    $(".notice").html(xhr.responseText)
