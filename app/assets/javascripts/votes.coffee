@@ -8,8 +8,8 @@ $ ->
     div_vote = '.' + 'vote-' + data.vote.votable_type.toLowerCase() + '-' + data.vote.votable_id
 
     $(div_vote + " div.rating").html(data.rating)
-    $(div_vote + " .vote-up").hide()
-    $(div_vote + " .vote-down").hide()
+    $(div_vote + " .good-question-link").hide()
+    $(div_vote + " .bad-question-link").hide()
 
   .bind 'ajax:error', (e, xhr, status, error) ->
     $("div.voting").html(xhr.responseText)
@@ -24,6 +24,6 @@ $ ->
     $(div_vote + " .vote-cancel").hide()
     $(div_vote + " .good-question-link").show()
     $(div_vote + " .bad-question-link").show()
-    
+
   .bind 'ajax:error', (e, xhr, status, error) ->
     $("div.voting").html(xhr.responseText)
