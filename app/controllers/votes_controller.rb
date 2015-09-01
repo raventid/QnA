@@ -12,7 +12,7 @@ class VotesController < ApplicationController
         render json: @vote.errors.full_messages, status: :unprocessable_entity
       end
     else
-      render json: { status: :forbidden }, status: :forbidden
+      render json: { message: 'You have no permission to perform this action' }, status: :forbidden
     end
   end
 
@@ -29,7 +29,7 @@ class VotesController < ApplicationController
         render json: @vote.errors.full_messages, status: :unprocessable_entity
       end
     else
-      render json: { status: :forbidden }, status: :forbidden
+      render json: { message: 'You have no permission to perform this action' }, status: :forbidden
     end
   end
 
