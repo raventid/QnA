@@ -64,6 +64,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'quiet_assets'
   gem 'pry-rails'
+
+  gem 'rubocop', require: false
 end
 
 group :test do
