@@ -15,9 +15,9 @@ require_relative 'acceptance_helper'
      visit question_path(question)
 
      within '#question-block' do
-       within  '.rating' do
-         expect(page).to_not have_link 'like'
-         expect(page).to_not have_link 'dislike'
+       within  '.voting' do
+         expect(page).to_not have_link 'a.good-question-link'
+         # expect(page).to_not have_link 'dislike'
        end
      end
    end
@@ -26,10 +26,10 @@ require_relative 'acceptance_helper'
      
      sign_in(users[1])
      visit question_path(question)
- 
+
      within '#question-block' do
-       within  '.rating' do
-         click_on 'like'
+       within  '.voting' do
+         find(:xpath, './good-question-link').click
          expect(page).to have_content '1'
        end
      end
@@ -41,7 +41,7 @@ require_relative 'acceptance_helper'
      visit question_path(question)
  
      within '#question-block' do
-       within  '.rating' do
+       within  '.voting' do
         click_on 'dislike'
         expect(page).to have_content '-1'
        end
@@ -53,7 +53,7 @@ require_relative 'acceptance_helper'
      visit question_path(question)
 
      within '#question-block' do
-       within  '.rating' do
+       within  '.voting' do
         expect(page).to_not have_link 'like'
         expect(page).to_not have_link 'dislike'
        end
@@ -61,7 +61,7 @@ require_relative 'acceptance_helper'
    end
  
  
-   before { question.votes.create(user: users[1], like: 1) }
+   before { question.votes.create(user: users[1], value: 1) }
  
    scenario "User tries to cancel his vote", js: true do
  
@@ -70,7 +70,7 @@ require_relative 'acceptance_helper'
      visit question_path(question)
  
      within '#question-block' do
-       within  '.rating' do
+       within  '.voting' do
         click_on 'cancel'
         expect(page).to have_content '0'
        end

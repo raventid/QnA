@@ -12,17 +12,12 @@ RSpec.describe VotesController, type: :controller do
 
         it "for the question" do
           sign_in another_user
-          expect {post :create, question_id: question.id, id: question, votable: question, value: 1, format: :json}.to change(question.rating).by(1)
-        end
-
-        it "for the answer" do
-          sign_in another_user
-          expect {post :create, question_id: question.id, id: question, votable: question, value: 1, format: :json}.to change{answer.rating}.by(1)
+          expect {post :create, question_id: question.id, votable: question, value: 1, format: :json}.to change{question.rating}.by(1)
         end
 
         it "send OK to client from server" do
            sign_in another_user
-            post :create, question_id: question.id, id: question, votable: question, value: 1, format: :json
+            post :create, question_id: question.id, votable: question, value: 1, format: :json
             expect(response).to have_http_status(200)
         end
       end
@@ -34,7 +29,7 @@ RSpec.describe VotesController, type: :controller do
                                votable: question, value: 1, format: :json}.to_not change(Vote, :count)
       end
 
-      it "send to client from server" do
+      it "send 401 to client from server" do
           post :create, question_id: question.id, id: question, votable: question, value: 1, format: :json
           expect(response).to have_http_status(401)
       end
@@ -51,7 +46,7 @@ RSpec.describe VotesController, type: :controller do
                                votable: question, value: -1, format: :json}.to_not change(Vote, :count)
       end
 
-      it "send to client from server" do
+      it "send 403 to client from server" do
         post :create, question_id: question.id, id: question, votable: question, value: -1, format: :json
         expect(response).to have_http_status(403)
       end
@@ -87,13 +82,13 @@ RSpec.describe VotesController, type: :controller do
             expect(answer.rating).to eq 0
           end
 
-          it "send OK to client from server" do
+          it "send 401 to client from server" do
             delete :destroy, id: vote.id, format: :json
             expect(response).to have_http_status(401)
           end
         end
 
-        context "author can not vote cancel for your questions or answers" do
+        context "author can not vote cancel for his questions or answers" do
 
           before do
             sign_in(owner)
@@ -103,7 +98,7 @@ RSpec.describe VotesController, type: :controller do
             expect {delete :destroy, id: vote.id, format: :json}.to_not change(Vote, :count)
           end
 
-          it "send to client from server" do
+          it "send 403 to client from server" do
             delete :destroy, id: vote.id, format: :json
             expect(response).to have_http_status(403)
           end

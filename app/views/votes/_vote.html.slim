@@ -2,13 +2,14 @@ div [class="voting vote-#{votable.class.to_s.downcase}-#{votable.id}"]
   div.rating
     = votable.rating
   - if user_signed_in? && current_user.voted_for?(votable)
-    = link_to 'cancel', vote_path(current_user.get_vote_object(votable)), method: :delete, remote: true, data: { type: :json, confirm: 'Are you sure?'}, class: "vote-cancel"
+    = link_to 'cancel', vote_path(current_user.vote_for(votable)), method: :delete, remote: true, data: { type: :json, confirm: 'Are you sure?'}, class: "vote-cancel"
     = link_to polymorphic_path([votable, :votes], value: 1), method: :post, remote: true, data: {type: :json}, class: "good-question-link", title: "Good question", style: "display: none"
       span class="glyphicon glyphicon-thumbs-up colored-text"
       | &nbsp;
       = link_to polymorphic_path([votable, :votes], value: -1), method: :post, remote: true, data: {type: :json}, class: "bad-question-link", title: "Bad question", style: "display: none"
         span class="glyphicon glyphicon-thumbs-down colored-text"
   - else
+    = link_to 'cancel', '#', method: :delete, remote: true, data: { type: :json, confirm: 'Are you sure?'}, class: "vote-cancel", style: "display: none"
     = link_to polymorphic_path([votable, :votes], value: 1), method: :post, remote: true, data: {type: :json}, class: "good-question-link", title: "Good question"
       span class="glyphicon glyphicon-thumbs-up colored-text"
       | &nbsp;

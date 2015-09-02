@@ -8,6 +8,7 @@ $ ->
     div_vote = '.' + 'vote-' + data.vote.votable_type.toLowerCase() + '-' + data.vote.votable_id
 
     $(div_vote + " div.rating").html(data.rating)
+    $(div_vote + " .vote-cancel").attr("href", "/votes/" + data.vote.id).show()
     $(div_vote + " .good-question-link").hide()
     $(div_vote + " .bad-question-link").hide()
 
