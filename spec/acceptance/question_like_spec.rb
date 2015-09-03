@@ -29,7 +29,7 @@ require_relative 'acceptance_helper'
 
      within '#question-block' do
        within '.voting' do
-         find(:xpath, "//a[@class='good-question-link']").click
+         find(:xpath, "./a[@class='good-question-link']").click
          within '.rating' do
            expect(page).to have_content '1'
          end
@@ -44,7 +44,7 @@ require_relative 'acceptance_helper'
  
      within '#question-block' do
        within '.voting' do
-         find(:xpath, "//a[@class='bad-question-link']").click
+         find(:xpath, "./a[@class='bad-question-link']").click
          within '.rating' do
            expect(page).to have_content '-1'
          end
@@ -58,11 +58,9 @@ require_relative 'acceptance_helper'
 
      within '#question-block' do
        within '.voting' do
-         within '.rating' do
-           find(:xpath, "//a[@class='good-question-link']").click
-         end
-         expect(page).to have_xpath "//a[@class='good-question-link']"
-         expect(page).to have_xpath "//a[@class='bad-question-link']"
+         find(:xpath, "./a[@class='good-question-link']").click
+         expect(page).to have_xpath "./a[@class='good-question-link']"
+         expect(page).to have_xpath "./a[@class='bad-question-link']"
        end
      end
    end
