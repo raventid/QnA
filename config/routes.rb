@@ -1,12 +1,20 @@
 Rails.application.routes.draw do
-  devise_for :users
-  resources :questions do
-    resources :answers, shallow: true
-  end
-
   root to: "questions#index"
 
+  devise_for :users
+
+  concern :votable do
+    resources :votes, only: [:create, :destroy]
+  end
+
+  resources :questions, concerns: :votable do
+    resources :answers, concerns: :votable, shallow: true
+  end
+
   post 'answers/:id/best' => 'answers#best', as: :best
+
+  #post 'votes/like' => 'votes#voting', as: :like
+  #delete 'vote/:id' => 'votes#destroy', as: :cancel_vote
 
   resources :attachments, only: [:destroy]
 

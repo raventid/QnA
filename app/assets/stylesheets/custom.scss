@@ -37,6 +37,22 @@ textarea {
     margin-bottom: 60px;
 }
 
+.bad-question-link .colored-text {
+    color: red;
+}
+
+.good-question-link .colored-text {
+    color: blue;
+}
+
+.bad-answer-link .colored-text {
+    color: red;
+}
+
+.good-answer-link .colored-text {
+    color: blue;
+}
+
 /* typography */
 h1, h2, h3, h4, h5, h6 {
     line-height: 1;

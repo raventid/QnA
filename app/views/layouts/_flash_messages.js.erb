@@ -1,0 +1,11 @@
+<% if flash[:alert] %>
+    <!--The name of the div where to place the message for alert-->
+    $('.alert').append('<%= flash[:alert] %>');
+    <%= flash[:alert] = '' %>
+<% end %>
+
+<% if flash[:notice] %>
+    <!--The name of the div where to place the message for notice-->
+    $('.notice').append('<%= flash[:notice] %>');
+    <%= flash[:notice] = '' %>
+<% end %>
