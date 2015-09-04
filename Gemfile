@@ -48,7 +48,11 @@ gem 'carrierwave'
 gem 'remotipart'
 
 #For dynamic generation of forms
-gem "cocoon"
+gem 'cocoon'
+
+#Using ryanb solutin for comet: private_pub use faye
+gem 'private_pub'
+gem 'thin'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
