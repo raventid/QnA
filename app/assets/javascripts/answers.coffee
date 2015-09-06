@@ -19,6 +19,6 @@ $(document).ready(ready) # "вешаем" функцию ready на событи
 $(document).on('page:load', ready)  # "вешаем" функцию ready на событие page:load
 $(document).on('page:update', ready) # "вешаем" функцию ready на событие page:update
 
-PrivatePub.subscribe '/questions/QUESTION_ID/answers/', (data, channel) ->
-  answer = $.parseJSON(data['answer'])
-  $('#list-of-all-questions').append('<h4><a href="/questions/QUESTION_ID/answers">' + question.title + '</a></h4>')
+#PrivatePub.subscribe "/questions/#{question.id}/answers/", (data, channel) ->
+#  answer = $.parseJSON(data['answer'])
+#  $('#list-of-all-questions').append('<h4><a href="/questions/' + question.id + '/answers">' + question.title + '</a></h4>')
