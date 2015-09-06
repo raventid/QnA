@@ -1,11 +1,12 @@
 .row
   div class="col-md-1 col-md-offset-1"
     = render partial: "votes/vote", locals: {votable: question}
-  div class="col-md-10"
+  div class="col-md-10" id="question-block-#{question.id}"
     h3
       = question.title
     p
       = question.body
+    - unless question.attachments.blank?
     p Attachments:
     ul
       - question.attachments.each do |a|
@@ -30,5 +31,15 @@
         .add-file-link
           = link_to_add_association 'Add file', f, :attachments, partial: 'attachments/attachment_fields'
     
-      = f.submit 'Save', class: "btn btn-primary" 
+      = f.submit 'Save', class: "btn btn-primary"
+
+    .comments
+      strong Comments
+    = render question.comments
+    = link_to 'Add comment', '', class: 'create-comment-link', data: {commentable_id: question.id}
+    = form_for [question, question.comments.build], method: "post", remote: true, html: {id: "create-comment-#{question.id}"} do |f|
+      = f.label :comment_body, "Comment"
+      = f.text_area :comment_body
+      = f.submit 'Create'
+      .comment-errors
 hr.style-five

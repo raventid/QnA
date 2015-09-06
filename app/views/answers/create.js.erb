@@ -4,10 +4,15 @@
   <% end %>
 <% else %>
   <%if remotipart_submitted?%>
-    $('.answers').append('<%= j "#{render @answer}" %>');
+    <!--publish new answer to channel-->
+    <% publish_to "/questions/#{@question.id}/answers" do %>
+      $('.answers').append('<%= j "#{render @answer}" %>');
+    <% end %>
     $('#create-new-answer').html('<%= j "#{render 'questions/new_answer'}"%>');
   <%else%>
-    $('.answers').append("<%= j render @answer %>");
+    <% publish_to "/questions/#{@question.id}/answers" do %>
+      $('.answers').append("<%= j render @answer %>");
+    <% end %>
     $('#create-new-answer').html('<%= j render 'questions/new_answer'%>');
   <%end%>
-  <% end %>
+<% end %>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root to: "questions#index"
 
   devise_for :users
@@ -8,7 +9,10 @@ Rails.application.routes.draw do
   end
 
   resources :questions, concerns: :votable do
-    resources :answers, concerns: :votable, shallow: true
+    resources :comments, only: [:create]
+    resources :answers, concerns: :votable, shallow: true do
+      resources :comments, only: [:create]
+    end
   end
 
   post 'answers/:id/best' => 'answers#best', as: :best

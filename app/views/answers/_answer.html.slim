@@ -35,5 +35,16 @@
                     = link_to_add_association 'Add file', f, :attachments, partial: 'attachments/attachment_fields'
                 p
                   = f.submit 'Save', class: "btn btn-primary"
+        .comments
+          strong Comments
+        = render answer.comments
+        /- answer.comments.each do |comment|
+        /  = render partial: 'comments/comment', locals: {comment: comment}
+        = link_to 'Add comment','', class: 'create-comment-link', data: { commentable_id: answer.id }
+        = form_for [ answer, answer.comments.build ], method: "post", remote: true, html: { id: "create-comment-#{answer.id}"} do |f|
+          = f.label :comment_body, "Comment"
+          = f.text_area :comment_body
+          = f.submit 'Create'
+          .comment-errors
 
     hr.style-two
