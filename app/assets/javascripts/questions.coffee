@@ -13,3 +13,7 @@ ready = ->
 $(document).ready(ready) # "вешаем" функцию ready на событие document.ready
 $(document).on('page:load', ready)  # "вешаем" функцию ready на событие page:load
 $(document).on('page:update', ready) # "вешаем" функцию ready на событие page:update
+
+PrivatePub.subscribe '/questions', (data, channel) ->
+    question = $.parseJSON(data['question'])
+    $('#list-of-all-questions').append('<h4><a href="/questions/' + question.id + '">' + question.title + '</a></h4>')

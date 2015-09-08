@@ -1,3 +1,4 @@
+# Question Controller
 class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
@@ -21,6 +22,8 @@ class QuestionsController < ApplicationController
     @question = Question.create(question_params)
     @question.user = current_user
     if @question.save
+      # we publish message to channel only if we are sure it is correct, so no publish_to in else
+      PrivatePub.publish_to('/questions', question: @question.to_json)
       flash[:notice] = "Your question successfully created."
       redirect_to @question
     else

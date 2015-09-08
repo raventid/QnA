@@ -5,17 +5,23 @@ class AnswersController < ApplicationController
 
   def create
     @answer = @question.answers.new(answer_params.merge(user: current_user))
-    flash[:notice] = @answer.save ? 'Your answer has been added! Thank you!' : 'Can not create answer'
+    if @answer.save
+      # PrivatePub.publish_to("/questions/#{@answer.question.id}/answers", answer: @answer.to_json)
+      flash[:notice] = 'Your answer has been added'
+    else
+      flash[:alert] = 'Can not create answer'
+    end
+    # flash[:notice] = @answer.save ? 'Your answer has been added! Thank you!' : 'Can not create answer'
   end
 
   def update
-    if @answer.user_id == current_user.id
+    if @answer.user == current_user
      flash[:notice] =  @answer.update(answer_params) ? 'Answer has been updated' : 'Can not update answer'
     end
   end
 
   def destroy
-    if @answer.user_id == current_user.id 
+    if @answer.user == current_user
       flash[:notice] = 'Your answer has been deleted' if @answer.destroy  
     else
       flash[:alert] = 'Can not delete the answer.'
@@ -23,7 +29,7 @@ class AnswersController < ApplicationController
   end
 
   def best
-    if @answer.question.user_id == current_user.id
+    if @answer.question.user == current_user
       @answer.best_answer
       flash[:notice] = 'Best answer has been choosen'
     end

@@ -1,0 +1,12 @@
+<% if @comment.errors.present? %>
+    <% @comment.errors.full_messages.each do |message| %>
+      $('#<%= @comment.commentable_type.downcase %>-block-<%=@comment.commentable_id %> .comment-errors').html('<%= j message %>');
+    <% end %>
+<% else %>
+     <% publish_to "/questions/#{@question.id}/comments" do %>
+$('#<%= @comment.commentable_type.downcase %>-block-<%= @comment.commentable_id %> .comments').append('<%= j render @comment %>');
+  <% end %>
+          $('#<%= @comment.commentable_type.downcase %>-<%= @comment.commentable_id %> #comment_comment_body').val('');
+  $('#<%= @comment.commentable_type.downcase %>-block-<%= @comment.commentable_id %> .new_comment').hide();
+  $('#<%= @comment.commentable_type.downcase %>-block-<%= @comment.commentable_id %> .create-comment-link').show();
+<% end %>
