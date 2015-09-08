@@ -3,16 +3,13 @@
     $('.answer-errors').html('<%= j message %>');
   <% end %>
 <% else %>
+   <!--publish new answer to channel-->
+   <% publish_to "/questions/#{@question.id}/answers" do %>
+     $('.answers').append('<%= j render @answer %>');
+   <% end %>
   <%if remotipart_submitted?%>
-    <!--publish new answer to channel-->
-    <% publish_to "/questions/#{@question.id}/answers" do %>
-      $('.answers').append('<%= j "#{render @answer}" %>');
-    <% end %>
     $('#create-new-answer').html('<%= j "#{render 'questions/new_answer'}"%>');
   <%else%>
-    <% publish_to "/questions/#{@question.id}/answers" do %>
-      $('.answers').append("<%= j render @answer %>");
-    <% end %>
     $('#create-new-answer').html('<%= j render 'questions/new_answer'%>');
   <%end%>
 <% end %>

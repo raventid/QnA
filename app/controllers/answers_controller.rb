@@ -6,7 +6,7 @@ class AnswersController < ApplicationController
   def create
     @answer = @question.answers.new(answer_params.merge(user: current_user))
     if @answer.save
-      PrivatePub.publish_to("/questions/#{@answer.question.id}/answers", answer: @answer.to_json)
+      # PrivatePub.publish_to("/questions/#{@answer.question.id}/answers", answer: @answer.to_json)
       flash[:notice] = 'Your answer has been added'
     else
       flash[:alert] = 'Can not create answer'
