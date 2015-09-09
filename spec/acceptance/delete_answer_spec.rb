@@ -4,7 +4,7 @@ feature 'Authenticated user deletes answer', %q{
   User can delete his own answers
 } do
 
-  #Вопрос больше не должен отображаться на страничке
+  # Вопрос больше не должен отображаться на страничке
   given(:user) { create(:user) }
   given(:another_user) { create(:user) }
   given(:question) { create(:question) }
@@ -17,7 +17,7 @@ feature 'Authenticated user deletes answer', %q{
 
     click_on 'Delete my answer'
 
-    expect(page).to have_content 'Your answer has been deleted'
+    expect(page).to have_content 'Answer was successfully destroyed.'
     expect(page).to_not have_content answer.body
   end
 

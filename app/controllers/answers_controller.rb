@@ -6,28 +6,20 @@ class AnswersController < ApplicationController
   respond_to :js
 
   def create
-    respond_with(@answer = @question.answers.new(answer_params.merge(user: current_user)))
+    # we use @question.answers.create instead of build or new because we have to save this in db
+     respond_with(@answer = @question.answers.create(answer_params.merge(user: current_user)))
   end
 
   def update
-    if @answer.user == current_user
-     flash[:notice] =  @answer.update(answer_params) ? 'Answer has been updated' : 'Can not update answer'
-    end
+    respond_with(@answer.update(answer_params)) if @answer.user == current_user
   end
 
   def destroy
-    if @answer.user == current_user
-      flash[:notice] = 'Your answer has been deleted' if @answer.destroy  
-    else
-      flash[:alert] = 'Can not delete the answer.'
-    end 
+    respond_with(@answer.destroy) if @answer.user == current_user
   end
 
   def best
-    if @answer.question.user == current_user
-      @answer.best_answer
-      flash[:notice] = 'Best answer has been choosen'
-    end
+    respond_with(@answer.best_answer) if @answer.question.user == current_user
   end 
 
   private
@@ -38,10 +30,6 @@ class AnswersController < ApplicationController
 
   def load_answer
     @answer = Answer.find(params[:id])
-  end
-
-  def load_question_answer
-    @question = @answer.question
   end
 
   def answer_params
