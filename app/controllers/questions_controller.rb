@@ -63,4 +63,8 @@ class QuestionsController < ApplicationController
   def question_params
     params.require(:question).permit(:title, :body, attachments_attributes: [:file])
   end
+  # def interpolation_options
+  #   send any text to flash messages with interpolation options
+  #   { resource_name: @question.user.email }
+  # end
 end

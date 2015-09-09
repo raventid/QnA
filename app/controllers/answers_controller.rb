@@ -3,15 +3,10 @@ class AnswersController < ApplicationController
   before_action :load_question, only: [:create]
   before_action :load_answer, only: [:best, :destroy, :update]
 
+  respond_to :js
+
   def create
-    @answer = @question.answers.new(answer_params.merge(user: current_user))
-    if @answer.save
-      # PrivatePub.publish_to("/questions/#{@answer.question.id}/answers", answer: @answer.to_json)
-      flash[:notice] = 'Your answer has been added'
-    else
-      flash[:alert] = 'Can not create answer'
-    end
-    # flash[:notice] = @answer.save ? 'Your answer has been added! Thank you!' : 'Can not create answer'
+    respond_with(@answer = @question.answers.new(answer_params.merge(user: current_user)))
   end
 
   def update
@@ -43,7 +38,11 @@ class AnswersController < ApplicationController
 
   def load_answer
     @answer = Answer.find(params[:id])
-  end 
+  end
+
+  def load_question_answer
+    @question = @answer.question
+  end
 
   def answer_params
     params.require(:answer).permit(:body, attachments_attributes: [:file, :_destroy])
