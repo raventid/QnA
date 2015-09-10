@@ -19,7 +19,7 @@ class AnswersController < ApplicationController
   end
 
   def best
-    respond_with(@answer.best_answer) if @answer.question.user == current_user
+    respond_with(@answer.best_answer) if @answer.question.user_id == current_user.id
   end 
 
   private

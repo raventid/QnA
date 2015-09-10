@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :load_commentable
-  # after_action :load_question
+  before_action :load_question
 
   respond_to :js
 
@@ -18,9 +18,9 @@ class CommentsController < ApplicationController
     @commentable = model_klass.find(params[commentable_id])
   end
 
-  # def load_question
-  #   @question = @comment.commentable_type == 'Question' ? @comment.commentable : @comment.commentable.question
-  # end
+  def load_question
+     @question = @commentable.is_a?(Question) ? @commentable : @commentable.question
+  end
 
   # def publish_comment
   # end

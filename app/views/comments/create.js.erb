@@ -3,7 +3,7 @@
       $('#<%= @comment.commentable_type.downcase %>-block-<%=@comment.commentable_id %> .comment-errors').html('<%= j message %>');
     <% end %>
 <% else %>
-     <% publish_to "/questions/#{(@comment.commentable_type == 'Question' ? @comment.commentable : @comment.commentable.question).id}/comments" do %>
+     <% publish_to "/questions/#{@question.id}/comments" do %>
 $('#<%= @comment.commentable_type.downcase %>-block-<%= @comment.commentable_id %> .comments').append('<%= j render @comment %>');
   <% end %>
           $('#<%= @comment.commentable_type.downcase %>-<%= @comment.commentable_id %> #comment_comment_body').val('');
