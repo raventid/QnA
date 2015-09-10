@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root to: "questions#index"
 
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callback: "omniauth_callback" }
 
   concern :votable do
     resources :votes, only: [:create, :destroy]
