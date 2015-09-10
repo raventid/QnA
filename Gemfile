@@ -54,6 +54,9 @@ gem 'cocoon'
 gem 'private_pub'
 gem 'thin'
 
+#For cool responders //rails g responders:install
+gem 'responders'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

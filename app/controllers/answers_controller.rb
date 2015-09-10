@@ -3,36 +3,23 @@ class AnswersController < ApplicationController
   before_action :load_question, only: [:create]
   before_action :load_answer, only: [:best, :destroy, :update]
 
+  respond_to :js
+
   def create
-    @answer = @question.answers.new(answer_params.merge(user: current_user))
-    if @answer.save
-      # PrivatePub.publish_to("/questions/#{@answer.question.id}/answers", answer: @answer.to_json)
-      flash[:notice] = 'Your answer has been added'
-    else
-      flash[:alert] = 'Can not create answer'
-    end
-    # flash[:notice] = @answer.save ? 'Your answer has been added! Thank you!' : 'Can not create answer'
+    # we use @question.answers.create instead of build or new because we have to save this in db
+     respond_with(@answer = @question.answers.create(answer_params.merge(user: current_user)))
   end
 
   def update
-    if @answer.user == current_user
-     flash[:notice] =  @answer.update(answer_params) ? 'Answer has been updated' : 'Can not update answer'
-    end
+    respond_with(@answer.update(answer_params)) if @answer.user_id == current_user.id
   end
 
   def destroy
-    if @answer.user == current_user
-      flash[:notice] = 'Your answer has been deleted' if @answer.destroy  
-    else
-      flash[:alert] = 'Can not delete the answer.'
-    end 
+    respond_with(@answer.destroy) if @answer.user_id == current_user.id
   end
 
   def best
-    if @answer.question.user == current_user
-      @answer.best_answer
-      flash[:notice] = 'Best answer has been choosen'
-    end
+    respond_with(@answer.best_answer) if @answer.question.user_id == current_user.id
   end 
 
   private
@@ -43,7 +30,7 @@ class AnswersController < ApplicationController
 
   def load_answer
     @answer = Answer.find(params[:id])
-  end 
+  end
 
   def answer_params
     params.require(:answer).permit(:body, attachments_attributes: [:file, :_destroy])

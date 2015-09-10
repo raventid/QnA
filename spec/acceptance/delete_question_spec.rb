@@ -13,7 +13,7 @@ feature 'Athenticated user can delete questions' do
 
     click_on 'delete'
 
-    expect(page).to have_content 'Your Question successfully deleted.'
+    expect(page).to have_content 'Question was successfully destroyed.'
     expect(page).to_not have_content question.title
     expect(current_path).to eq questions_path
   end
