@@ -1,0 +1,2 @@
+class VerificationMailer < ApplicationMailer
+end

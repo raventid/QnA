@@ -1,5 +1,5 @@
-class OmniauthCallbacksController < ApplicationController
-  before_action :sign_in_via_oauth, only: [:facebook]
+class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  before_action :oauth_sign_in, only: [:facebook]
 
   def facebook
   end
@@ -13,7 +13,7 @@ class OmniauthCallbacksController < ApplicationController
 
   private
 
-  def sign_in_via_oauth
+  def oauth_sign_in
     auth = request.env['omniauth.auth']
     @user = User.find_for_oauth(auth)
     if @user.persisted?
@@ -26,9 +26,7 @@ class OmniauthCallbacksController < ApplicationController
     end
   end
 
-
   def email_params
     params.require(:user).permit(:email)
   end
-
 end

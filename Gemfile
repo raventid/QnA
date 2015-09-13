@@ -50,7 +50,7 @@ gem 'remotipart'
 # For dynamic generation of forms
 gem 'cocoon'
 
-# Using ryanb solutin for comet: private_pub use faye
+# Using ryanb solution for comet: private_pub use faye
 gem 'private_pub'
 gem 'thin'
 
@@ -60,6 +60,16 @@ gem 'responders'
 # For facebook, twitter, vk authentication etc
 gem 'omniauth'
 gem 'omniauth-facebook'
+
+gem 'email_validator'
+
+group :development do
+  # For watching letters in browser
+  gem 'letter_opener'
+  # Quiet assets
+  gem 'quiet_assets'
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -72,7 +82,6 @@ group :development, :test do
 
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'quiet_assets'
   gem 'pry-rails'
 
   gem 'rubocop', require: false
@@ -85,4 +94,6 @@ group :test do
   #gem 'selenium-webdriver'
   gem 'capybara-webkit'
   gem 'database_cleaner'
+  gem 'email_spec'
+  gem 'capybara-email'
 end

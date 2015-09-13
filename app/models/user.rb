@@ -44,7 +44,6 @@ class User < ActiveRecord::Base
     user = User.create!(email: email, password: password, password_confirmation: password)
   end
 
-
   def create_authorization(auth)
     authorizations.create(provider: auth.provider, uid: auth.uid)
   end

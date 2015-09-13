@@ -55,6 +55,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-email (2.4.0)
+      capybara (~> 2.4)
+      mail
     capybara-webkit (1.5.2)
       capybara (>= 2.3.0, < 2.5.0)
       json
@@ -93,6 +96,11 @@ GEM
       http_parser.rb (>= 0.6.0)
     em-socksify (0.3.0)
       eventmachine (>= 1.0.0.beta.4)
+    email_spec (1.6.0)
+      launchy (~> 2.1)
+      mail (~> 2.2)
+    email_validator (1.6.0)
+      activemodel
     erubis (2.7.0)
     eventmachine (1.0.8)
     execjs (2.5.2)
@@ -130,6 +138,8 @@ GEM
     jwt (1.5.1)
     launchy (2.4.3)
       addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     loofah (2.0.2)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -291,16 +301,20 @@ DEPENDENCIES
   bootstrap-sass (= 3.2.0.0)
   byebug
   capybara
+  capybara-email
   capybara-webkit
   carrierwave
   cocoon
   coffee-rails (~> 4.1.0)
   database_cleaner
   devise
+  email_spec
+  email_validator
   factory_girl_rails
   jbuilder (~> 2.0)
   jquery-rails
   launchy
+  letter_opener
   omniauth
   omniauth-facebook
   pg

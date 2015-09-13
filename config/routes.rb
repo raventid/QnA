@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root to: "questions#index"
 
-  devise_for :users, controllers: { omniauth_callback: "omniauth_callback" }
+  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
 
   concern :votable do
     resources :votes, only: [:create, :destroy]
@@ -15,7 +15,15 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :verifications, only: [:new, :create, :show] do
+    get 'confirm/:token', on: :member, action: :confirm, as: :confirm
+  end
+
   post 'answers/:id/best' => 'answers#best', as: :best
+
+  devise_scope :user do
+    post 'input_email', to: 'omniauth_callbacks#input_email'
+  end
 
   #post 'votes/like' => 'votes#voting', as: :like
   #delete 'vote/:id' => 'votes#destroy', as: :cancel_vote

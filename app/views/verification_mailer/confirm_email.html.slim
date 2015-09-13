@@ -1,0 +1,6 @@
+h1 Confirm email for your #{@verify_data.provider.capitalize} account
+p
+  | Please click on
+  = link_to 'this link', confirm_verification_url(@verify_data, token: @verify_data.token)
+  |  to confirm your email and start using
+  = link_to 'QnA', root_url
