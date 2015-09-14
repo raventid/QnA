@@ -21,10 +21,6 @@ Rails.application.routes.draw do
 
   post 'answers/:id/best' => 'answers#best', as: :best
 
-  devise_scope :user do
-    post 'input_email', to: 'omniauth_callbacks#input_email'
-  end
-
   #post 'votes/like' => 'votes#voting', as: :like
   #delete 'vote/:id' => 'votes#destroy', as: :cancel_vote
 
