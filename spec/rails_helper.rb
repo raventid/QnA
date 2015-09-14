@@ -3,6 +3,8 @@ ENV['RAILS_ENV'] ||= 'test'
 require 'spec_helper'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
+require 'email_spec'
+require 'capybara/email/rspec'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -33,6 +35,10 @@ RSpec.configure do |config|
 
   #Add extend instead of include because we used before block in macros
   config.extend ControllerMacros, type: :controller
+
+  # Custom mailers for testing
+  config.include EmailSpec::Helpers, type: :mailer
+  config.include EmailSpec::Matchers, type: :mailer
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"

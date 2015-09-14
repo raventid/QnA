@@ -1,32 +1,23 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  before_action :oauth_sign_in, only: [:facebook]
+  before_action :perform_oauth
 
   def facebook
   end
 
-  def input_email
-    @user = User.generate_user(email_params[:email])
-    @user.authorizations.create(provider: session['device.auth_provider'], uid: session['device.auth_uid'])
-    sign_in_and_redirect @user, event: :authentication
-    set_flash_message(:notice, :success, kind: 'Twitter') if is_navigational_format?
+  def twitter
   end
 
   private
 
-  def oauth_sign_in
-    auth = request.env['omniauth.auth']
-    @user = User.find_for_oauth(auth)
+  def perform_oauth
+    oauth = request.env['omniauth.auth']
+    @user = User.find_for_oauth(oauth)
     if @user.persisted?
       sign_in_and_redirect @user, event: :authentication
       set_flash_message(:notice, :success, kind: action_name.capitalize) if is_navigational_format?
     else
-      render 'omniauth_callback/input_email'
-      session['device.auth_provider'] = auth.provider
-      session['device.auth_uid'] = auth.uid
+      session['devise.oauth_data'] = oauth.slice('provider', 'uid')
+      redirect_to new_verification_path
     end
-  end
-
-  def email_params
-    params.require(:user).permit(:email)
   end
 end

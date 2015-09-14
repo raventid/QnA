@@ -1,6 +1,6 @@
 class VerificationsController < ApplicationController
   before_action :permit_access, except: :confirm
-  before_action :prepare_oauth, only: :create
+  before_action :load_oauth, only: :create
   before_action :find_verification, only: :confirm
 
   def new
@@ -10,19 +10,20 @@ class VerificationsController < ApplicationController
   def create
     @verification = Verification.new(verifications_params.merge(uid: @oauth.uid, provider: @oauth.provider))
     if @verification.valid?
-      try_auth_user
+      try_authenticate_user
     else
       render :new
     end
   end
 
   def show
-    flush_oauth
+    session['devise.oauth_data'] = nil if session['devise.oauth_data']
   end
 
   def confirm
     user = User.find_for_oauth(@verification.oauth_hash)
     return unless user
+    # remove verification if everything is okay
     @verification.destroy if @verification.persisted?
     flash.notice = "Successfully authenticated from #{@verification.provider.capitalize} account"
     sign_in_and_redirect user, event: :authentication
@@ -34,11 +35,11 @@ class VerificationsController < ApplicationController
     redirect_to root_path unless session['devise.oauth_data']
   end
 
-  def prepare_oauth
+  def load_oauth
     @oauth = OmniAuth::AuthHash.new(session['devise.oauth_data'])
   end
 
-  def try_auth_user
+  def try_authenticate_user
     if User.exists?(email: @verification.email)
       @verification.save
       VerificationMailer.confirm_email(@verification).deliver_now
@@ -46,10 +47,6 @@ class VerificationsController < ApplicationController
     else
       confirm
     end
-  end
-
-  def flush_oauth
-    session['devise.oauth_data'] = nil if session['devise.oauth_data']
   end
 
   def find_verification

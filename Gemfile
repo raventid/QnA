@@ -60,6 +60,7 @@ gem 'responders'
 # For facebook, twitter, vk authentication etc
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 
 gem 'email_validator'
 
