@@ -106,7 +106,7 @@ RSpec.describe User do
         expect { User.find_for_oauth(auth) }.to_not change(User, :count)
       end
 
-      it 'does not save authorixation in database' do
+      it 'does not save authorization in database' do
         expect { User.find_for_oauth(auth) }.to_not change(Authorization, :count)
       end
 
