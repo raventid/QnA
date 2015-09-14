@@ -1,6 +1,6 @@
-h1 Confirm email for your #{@verify_data.provider.capitalize} account
+h1 Confirm email for your #{@verification_data.provider.capitalize} account
 p
-  | Please click on
-  = link_to 'this link', confirm_verification_url(@verify_data, token: @verify_data.token)
-  |  to confirm your email and start using
+  | Please click on &nbsp;
+  = link_to 'this link', confirm_verification_url(@verification_data, token: @verification_data.token)
+  |  to confirm your email and start using &nbsp;
   = link_to 'QnA', root_url

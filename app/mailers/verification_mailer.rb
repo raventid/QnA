@@ -1,6 +1,6 @@
 class VerificationMailer < ApplicationMailer
-  def confirm_email(verify_data)
-    @verify_data = verify_data
-    mail to: @verify_data.email, subject: "Confirm your #{verify_data.provider.capitalize} account"
+  def confirm_email(verification_data)
+    @verification_data = verification_data
+    mail to: @verification_data.email, subject: "Confirm your #{@verification_data.provider.capitalize} account"
   end
 end
