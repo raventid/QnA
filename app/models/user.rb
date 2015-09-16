@@ -10,14 +10,13 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:facebook, :twitter]
 
-  def voted_for?(votable)
-    return true if Vote.find_by(votable_id: votable.id, votable_type: votable.class.name, user_id: id)
-    false
-  end
-
   # this method return nil if user did not vote for this resource
   def vote_for(votable)
-    Vote.find_by(votable_id: votable.id, votable_type: votable.class.name, user_id: id)
+    Vote.find_by(votable: votable, user: self)
+  end
+
+  def voted_for?(votable)
+    !!vote_for(votable)
   end
 
   def self.find_for_oauth(auth)

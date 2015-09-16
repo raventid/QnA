@@ -3,9 +3,9 @@ class VotesController < ApplicationController
   before_action :load_votable, only: [:create]
 
   def create
-    @vote = Vote.new(value: params[:value], user_id: current_user.id, votable: @votable)
+    @vote = Vote.new(value: params[:value], user: current_user, votable: @votable)
 
-    if !@votable.blank? && user_signed_in? && !(current_user.id == @votable.user_id)
+    if @votable.present? && current_user.id != @votable.user_id
       if @vote.save
         render json: { vote: @vote, rating: @votable.rating }
       else
@@ -22,7 +22,7 @@ class VotesController < ApplicationController
     votable = @vote.votable
     votable_type = @vote.votable_type
 
-    if user_signed_in? && (current_user.id == @vote.user_id)
+    if current_user.id == @vote.user_id
       if @vote.destroy
         render json: { votable_id: votable.id, votable_type: votable_type, rating: votable.rating }
       else

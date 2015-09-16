@@ -1,6 +1,7 @@
 div [class="voting vote-#{votable.class.to_s.downcase}-#{votable.id}"]
   div.rating
     = votable.rating
+  /  #{current_user.voted_for?(votable) ? 'block' : 'none'}"
   - if user_signed_in? && current_user.voted_for?(votable)
     = link_to 'cancel', vote_path(current_user.vote_for(votable)), method: :delete, remote: true, data: { type: :json, confirm: 'Are you sure?'}, class: "vote-cancel"
     = link_to polymorphic_path([votable, :votes], value: 1), method: :post, remote: true, data: {type: :json}, class: "good-question-link", title: "Good question", style: "display: none"
