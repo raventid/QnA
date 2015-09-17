@@ -1,0 +1,11 @@
+div(class="row")
+  div(class="col-md-6 col-md-offset-3")
+    p Please enter your email to sign in or sign up
+    = form_for @verification do |f|
+      - if @verification.errors.any?
+        ul
+          - @verification.errors.full_messages.each do |msg|
+            li =msg
+      = f.label :email
+      = f.text_field :email, class: 'form-control'
+      = f.submit 'Submit', class: 'btn btn-success'

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root to: "questions#index"
 
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
 
   concern :votable do
     resources :votes, only: [:create, :destroy]
@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     resources :answers, concerns: :votable, shallow: true do
       resources :comments, only: [:create]
     end
+  end
+
+  resources :verifications, only: [:new, :create, :show] do
+    get 'confirm/:token', on: :member, action: :confirm, as: :confirm
   end
 
   post 'answers/:id/best' => 'answers#best', as: :best

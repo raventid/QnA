@@ -41,5 +41,7 @@ Rails.application.configure do
 
   # Set up action_mailer
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.email_default_from = "development@example.com"
+  config.action_mailer.delivery_method = :letter_opener
 
 end

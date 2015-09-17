@@ -35,27 +35,41 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use slim templates
 gem 'slim-rails'
 
-#Add some bootstrap styling
+# Add some bootstrap styling
 gem 'bootstrap-sass', '3.2.0.0'
 
 # Use devise for managing users
 gem 'devise'
 
-#CarrierWave for uploading files
+# CarrierWave for uploading files
 gem 'carrierwave'
 
-#Send files via ajax forms
+# Send files via ajax forms
 gem 'remotipart'
 
-#For dynamic generation of forms
+# For dynamic generation of forms
 gem 'cocoon'
 
-#Using ryanb solutin for comet: private_pub use faye
+# Using ryanb solution for comet: private_pub use faye
 gem 'private_pub'
 gem 'thin'
 
-#For cool responders //rails g responders:install
+# For cool responders //rails g responders:install
 gem 'responders'
+
+# For facebook, twitter, vk authentication etc
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+
+gem 'email_validator'
+
+group :development do
+  # For watching letters in browser
+  gem 'letter_opener'
+  # Quiet assets
+  gem 'quiet_assets'
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -69,7 +83,6 @@ group :development, :test do
 
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'quiet_assets'
   gem 'pry-rails'
 
   gem 'rubocop', require: false
@@ -82,4 +95,6 @@ group :test do
   #gem 'selenium-webdriver'
   gem 'capybara-webkit'
   gem 'database_cleaner'
+  gem 'email_spec'
+  gem 'capybara-email'
 end
