@@ -38,7 +38,7 @@ class Ability
     end
 
     can :create, Vote do |vote|
-      user.id != vote.votable.user_id
+      !(user.is_owner_of?(vote.votable))
     end
 
     can :destroy, Vote, user: user

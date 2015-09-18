@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :attachment do
-    file "MyString"
+    file { File.new(Rails.root.join('config.ru')) }
   end
 
   factory :question_attachment, class:'Attachment' do

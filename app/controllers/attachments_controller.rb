@@ -8,7 +8,7 @@ class AttachmentsController < ApplicationController
   respond_to :js
 
   def destroy
-    respond_with(@attachment.destroy) if current_user.is_owner_of?(@attachable)
+    respond_with(@attachment.destroy)
   end
 
   def load_attachment

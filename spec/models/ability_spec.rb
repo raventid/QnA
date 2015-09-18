@@ -50,16 +50,16 @@ describe Ability do
       let(:question) { create(:question, user: user) }
       let(:attachment) { create(:attachment, attachable: question) }
 
-      let(:question_two) { create(:question, user: another) }
-      let(:attach) { create(:attachment, attachable: question_two) }
+      let(:another_question) { create(:question, user: another) }
+      let(:another_attachment) { create(:attachment, attachable: another_question) }
 
-      it { should be_able_to :manage, attachment,user: user  }
-      it { should_not be_able_to :manage, attach, user: user }
+      it { should be_able_to :manage, attachment, user: user  }
+      it { should_not be_able_to :manage, another_attachment, user: user }
     end
 
     context "Vote" do
-
-      let(:vote) { create(:vote, user: user) }
+      let(:question) { create(:question) }
+      let(:vote) { create(:vote, user: user, votable: question, value: 1) }
 
       it { should be_able_to :create, Vote }
       it { should be_able_to :destroy, vote, user: user }
