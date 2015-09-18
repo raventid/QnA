@@ -4,6 +4,7 @@ class QuestionsController < ApplicationController
   before_action :load_question, only: [:show, :edit, :update, :destroy]
   after_action :publish_question, only: [:create]
 
+  authorize_resource
   respond_to :js, only: [:update]
 
   def index

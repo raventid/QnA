@@ -3,10 +3,12 @@ class AttachmentsController < ApplicationController
   before_action :load_attachment
   before_action :load_attachable
 
+  authorize_resource
+
   respond_to :js
 
   def destroy
-    respond_with(@attachment.destroy) if is_owner_of?(@attachable)
+    respond_with(@attachment.destroy) if current_user.is_owner_of?(@attachable)
   end
 
   def load_attachment
@@ -17,8 +19,8 @@ class AttachmentsController < ApplicationController
     @attachable = @attachment.attachable
   end
 
-  def is_owner_of?(obj)
-    user_signed_in? && current_user.id == obj.user_id
-  end
+  # def is_owner_of?(obj)
+  #   current_user.id == obj.user_id
+  # end
 
 end

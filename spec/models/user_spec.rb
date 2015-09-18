@@ -31,6 +31,25 @@ RSpec.describe User do
     end
   end
 
+  describe '#is_owner_of?' do
+    let(:user) { create(:user) }
+    let(:votable) { create(:question) }
+    let(:votable_of_user) { create(:question, user: user) }
+
+    context 'some votable' do
+      it 'returns false' do
+        expect(votable.user_id).to_not eq user.id
+      end
+    end
+
+    context 'his own votable' do
+      it 'returns true' do
+        expect(votable_of_user.user_id).to eq user.id
+      end
+    end
+
+  end
+
   describe '.find_for_ouath' do
     let!(:user) { create(:user) }
     let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456') }

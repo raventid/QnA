@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
     !!vote_for(votable)
   end
 
+  def is_owner_of?(obj)
+    self.id == obj.user_id
+  end
+
   def self.find_for_oauth(auth)
     authorization = Authorization.find_by(provider: auth.provider, uid: auth.uid.to_s)
     return authorization.user if authorization

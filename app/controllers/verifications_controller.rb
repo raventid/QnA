@@ -3,6 +3,8 @@ class VerificationsController < ApplicationController
   before_action :load_oauth, only: :create
   before_action :find_verification, only: :confirm
 
+  skip_authorization_check
+
   def new
     @verification = Verification.new
   end

@@ -3,6 +3,7 @@ class AnswersController < ApplicationController
   before_action :load_question, only: [:create]
   before_action :load_answer, only: [:best, :destroy, :update]
 
+  authorize_resource
   respond_to :js
 
   def create

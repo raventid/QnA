@@ -2,6 +2,8 @@ class VotesController < ApplicationController
   before_action :authenticate_user!
   before_action :load_votable, only: [:create]
 
+  authorize_resource
+
   def create
     @vote = Vote.new(value: params[:value], user: current_user, votable: @votable)
 
@@ -39,5 +41,6 @@ class VotesController < ApplicationController
     votable_id = params.keys.detect{ |k| k.to_s =~ /.*_id/ }
     model_klass = votable_id.chomp('_id').classify.constantize
     @votable = model_klass.find(params[votable_id])
+    authorize! action_name.to_sym, @votable
   end
 end
