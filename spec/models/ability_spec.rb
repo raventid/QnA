@@ -17,7 +17,6 @@ describe Ability do
     it { should be_able_to :read, :all }
     it { should be_able_to :create, Comment }
 
-
     context "question" do
       it { should be_able_to :create, Question }
 
@@ -27,7 +26,6 @@ describe Ability do
       it { should be_able_to :destroy, create(:question, user: user), user: user }
       it { should_not be_able_to :destroy, create(:question, user: another), user: user }
     end
-
 
     context "answer" do
       it { should be_able_to :create, Answer }
@@ -39,7 +37,6 @@ describe Ability do
       it { should_not be_able_to :destroy, create(:answer, user: another), user: user }
     end
 
-
     context "best answer" do
       let(:question) { create(:question, user: user) }
       let(:answer) { create(:answer, question: question) }
@@ -48,7 +45,6 @@ describe Ability do
       it { should be_able_to :best, answer  }
       it { should_not be_able_to :best, other_answer }
     end
-
 
     context "Attachment" do
       let(:question) { create(:question, user: user) }
@@ -62,8 +58,15 @@ describe Ability do
     end
 
     context "Vote" do
+
+      let(:vote) { create(:vote, user: user) }
+
       it { should be_able_to :create, Vote }
-      it { should be_able_to :destroy, Vote }
+      it { should be_able_to :destroy, vote, user: user }
     end
- end
+  end
+
+  describe "admin" do
+    it { should be_able_to :manage, :all }
+  end
 end

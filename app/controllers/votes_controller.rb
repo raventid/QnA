@@ -7,14 +7,10 @@ class VotesController < ApplicationController
   def create
     @vote = Vote.new(value: params[:value], user: current_user, votable: @votable)
 
-    if @votable.present? && current_user.id != @votable.user_id
-      if @vote.save
-        render json: { vote: @vote, rating: @votable.rating }
-      else
-        render json: @vote.errors.full_messages, status: :unprocessable_entity
-      end
+    if @vote.save
+      render json: { vote: @vote, rating: @votable.rating }
     else
-      render json: { message: 'You have no permission to perform this action' }, status: :forbidden
+      render json: @vote.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -24,14 +20,11 @@ class VotesController < ApplicationController
     votable = @vote.votable
     votable_type = @vote.votable_type
 
-    if current_user.id == @vote.user_id
-      if @vote.destroy
-        render json: { votable_id: votable.id, votable_type: votable_type, rating: votable.rating }
-      else
-        render json: @vote.errors.full_messages, status: :unprocessable_entity
-      end
+    authorize! :destroy, @vote
+    if @vote.destroy
+      render json: { votable_id: votable.id, votable_type: votable_type, rating: votable.rating }
     else
-      render json: { message: 'You have no permission to perform this action' }, status: :forbidden
+      render json: @vote.errors.full_messages, status: :unprocessable_entity
     end
   end
 

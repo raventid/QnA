@@ -8,7 +8,6 @@ class QuestionsController < ApplicationController
   respond_to :js, only: [:update]
 
   def index
-    # @questions = Question.all
     respond_with(@questions = Question.all)
   end
 
@@ -23,14 +22,6 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    # @question = Question.create(question_params)
-    # @question.user = current_user
-    # if @question.save
-    #   flash[:notice] = "Your question successfully created."
-    #   redirect_to @question
-    # else
-    #   render :new
-    # end
     respond_with(@question = current_user.questions.create(question_params))
   end
 
@@ -39,12 +30,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    if @question.user == current_user
-      respond_with(@question.destroy)
-    else
-      flash[:notice] = 'You are not the owner of this question.'
-      render :show
-    end
+    respond_with(@question.destroy)
   end
 
   private
