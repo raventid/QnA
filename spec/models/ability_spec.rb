@@ -7,6 +7,7 @@ describe Ability do
   describe "for guest" do
     let(:user) { nil }
     it { should be_able_to :read, :all }
+    it { should_not be_able_to :crud, :all}
     it { should_not be_able_to :manage, :all }
   end
 
@@ -67,6 +68,7 @@ describe Ability do
   end
 
   describe "admin" do
+    let(:user) { create :user, admin: true }
     it { should be_able_to :manage, :all }
   end
 end

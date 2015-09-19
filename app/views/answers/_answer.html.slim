@@ -15,7 +15,7 @@
               |&nbsp;
               = link_to '<span class="glyphicon glyphicon-remove"></span>'.html_safe+'Delete file', attachment_path(a), method: :delete, remote: true if user_signed_in? && current_user.id == answer.user_id
           
-        - if user_signed_in? && current_user.id == answer.question.user_id && current_user.id != answer.user_id && !answer.best
+        - if can?(:best, answer) && !answer.best
                 = link_to 'best', best_path(answer), method: :post, remote: true
         p
           - if can?(:destroy, answer)
