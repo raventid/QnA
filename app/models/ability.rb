@@ -25,6 +25,9 @@ class Ability
 
   def user_abilities
     guest_abilities
+
+    can :manage, :profile
+
     alias_action :create, :read, :update, :destroy, to: :crud
     can :crud, [Question, Answer], user: user
     can :create, Comment
