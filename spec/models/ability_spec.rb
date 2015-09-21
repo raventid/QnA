@@ -56,6 +56,8 @@ describe Ability do
 
       it { should be_able_to :manage, attachment, user: user  }
       it { should_not be_able_to :manage, another_attachment, user: user }
+
+      it { should_not be_able_to :destroy, another_attachment, user: user }
     end
 
     context "Vote" do
