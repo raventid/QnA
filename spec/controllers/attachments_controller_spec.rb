@@ -30,7 +30,9 @@ RSpec.describe AttachmentsController, type: :controller do
       it "should render destroy.js view" do
         sign_in(user)
         delete :destroy, id: question.attachments.first.id, format: :js
-        expect(response).to render_template 'destroy'
+        expect(response).to have_http_status(:forbidden)
+        # after we added cancan we do not need anymore to render destroy, cancan will return forbidden status
+        # expect(response).to render_template 'destroy'
       end
     end
 
@@ -54,7 +56,7 @@ RSpec.describe AttachmentsController, type: :controller do
       it "should render destroy.js view" do
         sign_in(user)
         delete :destroy, id: answer.attachments.first.id, format: :js
-        expect(response).to render_template 'destroy'
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end

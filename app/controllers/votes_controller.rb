@@ -3,7 +3,7 @@ class VotesController < ApplicationController
   before_action :load_votable, only: [:create]
   before_action :load_vote, only: [:destroy]
 
-  authorize_resource
+  authorize_resource except: :create
 
   def create
     @vote = Vote.new(value: params[:value], user: current_user, votable: @votable)
