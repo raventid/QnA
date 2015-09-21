@@ -104,7 +104,10 @@ RSpec.describe QuestionsController, type: :controller do
     end
 
     describe 'PATCH #update' do
-      sign_in_user
+      let(:user){ create(:user) }
+      let!(:question) { create(:question, user: user) }
+
+      before { sign_in user }
 
       context 'valid attributes' do
         it 'assigns the requested question to @question' do
@@ -123,6 +126,7 @@ RSpec.describe QuestionsController, type: :controller do
           patch :update, id: question, question: attributes_for(:question), format: :js
           expect(response).to render_template :update
         end
+      #   check for authorized user
       end
 
       context 'not valid attibutes' do
@@ -132,7 +136,6 @@ RSpec.describe QuestionsController, type: :controller do
           expect(question.title).to eq 'QuestionFactoryGirlTitle'
           expect(question.body).to eq 'QuestionFactoryGirlText'
         end
-
       end
     end
 

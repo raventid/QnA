@@ -3,23 +3,23 @@ class AnswersController < ApplicationController
   before_action :load_question, only: [:create]
   before_action :load_answer, only: [:best, :destroy, :update]
 
+  authorize_resource
   respond_to :js
 
   def create
-    # we use @question.answers.create instead of build or new because we have to save this in db
      respond_with(@answer = @question.answers.create(answer_params.merge(user: current_user)))
   end
 
   def update
-    respond_with(@answer.update(answer_params)) if @answer.user_id == current_user.id
+    respond_with(@answer.update(answer_params))
   end
 
   def destroy
-    respond_with(@answer.destroy) if @answer.user_id == current_user.id
+    respond_with(@answer.destroy)
   end
 
   def best
-    respond_with(@answer.best_answer) if @answer.question.user_id == current_user.id
+    respond_with(@answer.best_answer)
   end 
 
   private

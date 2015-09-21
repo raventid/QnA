@@ -15,7 +15,7 @@
           = link_to a.file.identifier, a.file.url
           = link_to '<span class="glyphicon glyphicon-remove"></span>'.html_safe+'Delete file', attachment_path(a), method: :delete, remote: true if user_signed_in? && current_user.id == question.user_id
 
-    - if user_signed_in? && question.user_id == current_user.id
+    - if can?(:crud, question)
         p
           = link_to 'Edit', '', class: 'edit-question-link'
           | &nbsp; 

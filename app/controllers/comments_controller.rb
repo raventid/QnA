@@ -3,6 +3,7 @@ class CommentsController < ApplicationController
   before_action :load_commentable
   before_action :load_question
 
+  authorize_resource
   respond_to :js
 
   def create

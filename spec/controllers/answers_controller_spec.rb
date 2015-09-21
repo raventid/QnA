@@ -78,15 +78,15 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'POST #best' do
-
     sign_in_user
 
     context 'Author checks best answer' do
 
       before { question.update!(user: @user) }
+      before { answer.update!(question: question) }
 
       it 'render template answers/best' do
-        post :best, question_id: question, id: answer, answer: { best: true }, format: :js
+        post :best, question: question, id: answer, answer: { best: true }, format: :js
         expect(response).to render_template :best
       end
     end

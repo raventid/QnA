@@ -64,6 +64,9 @@ gem 'omniauth-twitter'
 
 gem 'email_validator'
 
+# For authorization
+gem 'cancancan'
+
 group :development do
   # For watching letters in browser
   gem 'letter_opener'
