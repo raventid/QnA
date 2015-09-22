@@ -4,7 +4,7 @@ class Api::V1::ProfilesController < ApplicationController
 
   respond_to :json
 
-  def show
+  def index
     respond_with User.where.not(id: current_resource_owner.id)
   end
 
