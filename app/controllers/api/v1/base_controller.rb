@@ -1,6 +1,6 @@
 class Api::V1::BaseController < ApplicationController
   before_action :doorkeeper_authorize!
-  # authorize_resource class: false
+  # authorize_resource class: User
 
   respond_to :json
 

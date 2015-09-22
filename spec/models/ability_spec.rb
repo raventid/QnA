@@ -66,6 +66,8 @@ describe Ability do
 
       it { should be_able_to :create, Vote }
       it { should be_able_to :destroy, vote, user: user }
+    #   other user vote
+    #   create vote for YOUR votable
     end
 
     it { should be_able_to :manage, :profile }
