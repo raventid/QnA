@@ -67,6 +67,9 @@ gem 'email_validator'
 # For authorization
 gem 'cancancan'
 
+# For API
+gem 'doorkeeper'
+
 group :development do
   # For watching letters in browser
   gem 'letter_opener'
@@ -100,4 +103,5 @@ group :test do
   gem 'database_cleaner'
   gem 'email_spec'
   gem 'capybara-email'
+  gem 'json_spec'
 end

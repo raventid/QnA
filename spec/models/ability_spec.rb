@@ -67,6 +67,9 @@ describe Ability do
       it { should be_able_to :create, Vote }
       it { should be_able_to :destroy, vote, user: user }
     end
+
+    it { should be_able_to :manage, :profile }
+
   end
 
   describe "admin" do
