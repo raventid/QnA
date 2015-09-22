@@ -70,7 +70,11 @@ describe Ability do
     #   create vote for YOUR votable
     end
 
-    it { should be_able_to :manage, :profile }
+    context "Api/Profiles" do
+      it { should be_able_to :index, User }
+      it { should be_able_to :me, User }
+    end
+
 
   end
 
