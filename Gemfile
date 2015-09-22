@@ -69,6 +69,7 @@ gem 'cancancan'
 
 # For API
 gem 'doorkeeper'
+gem 'active_model_serializers'
 
 group :development do
   # For watching letters in browser
