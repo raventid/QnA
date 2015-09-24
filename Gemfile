@@ -69,6 +69,9 @@ gem 'cancancan'
 
 # For API
 gem 'doorkeeper'
+gem 'active_model_serializers'
+gem 'oj'
+gem 'oj_mimic_json'
 
 group :development do
   # For watching letters in browser
