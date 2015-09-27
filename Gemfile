@@ -73,6 +73,10 @@ gem 'active_model_serializers'
 gem 'oj'
 gem 'oj_mimic_json'
 
+# For background jobs
+gem 'sidekiq'
+gem 'sinatra', '>=1.3.0', require: nil
+
 group :development do
   # For watching letters in browser
   gem 'letter_opener'
