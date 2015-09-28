@@ -12,9 +12,24 @@ class Answer < ActiveRecord::Base
   validates :user_id, presence: true
   validates :body, presence: true
 
+  after_create :notify_subscribers
+  after_create :create_subscription_for_author
+
   def best_answer
     current_best = self.question.best_answer
     current_best.update!(best: false) if current_best
     self.update!(best: true)
+  end
+
+  private
+
+  def notify_subscribers
+    AnswerNoticeJob.perform_later(self)
+  end
+
+  def create_subscription_for_author
+    unless Subscription.where(user: self.user, question: self.question).first
+      Subscription.create(user: self.user, question: self.question)
+    end
   end
 end

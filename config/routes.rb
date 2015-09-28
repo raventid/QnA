@@ -24,6 +24,8 @@ Rails.application.routes.draw do
 
   resources :attachments, only: [:destroy]
 
+
+  # API routing
   namespace :api do
     namespace :v1 do
       resources :profiles do
@@ -35,6 +37,7 @@ Rails.application.routes.draw do
     end
   end
 
+  # Background jobs monitoring for administration
   require 'sidekiq/web'
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'

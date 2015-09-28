@@ -46,5 +46,7 @@ class Ability
     end
 
     can :destroy, Vote, user: user
+
+    can [:create, :destroy], Subscription
   end
 end
