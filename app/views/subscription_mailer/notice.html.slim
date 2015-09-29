@@ -1,0 +1,4 @@
+SubscriptionMailer#notice
+p= link_to @answer.question.title, question_url(@answer.question)
+= @answer.question.answers.each do |answer|
+  p= answer.body
