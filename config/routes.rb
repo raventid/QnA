@@ -10,12 +10,14 @@ Rails.application.routes.draw do
   end
 
   resources :questions, concerns: :votable do
-    resources :subscriptions
+    resources :subscriptions, only: [:create]
     resources :comments, only: [:create]
     resources :answers, concerns: :votable, shallow: true do
       resources :comments, only: [:create]
     end
   end
+
+  resources :subscriptions, only: [:destroy]
 
   resources :verifications, only: [:new, :create, :show] do
     get 'confirm/:token', on: :member, action: :confirm, as: :confirm

@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe SubscriptionsController, type: :controller do
-  let!(:user)         { create(:user) }
-  let!(:user2)        { create(:user) }
-  let!(:question)     { create(:question, user: user) }
+  let!(:user)          { create(:user) }
+  let!(:user2)         { create(:user) }
+  let!(:question)      { create(:question, user: user) }
   let!(:subscription)  { user.subscriptions.where(question: question).first }
 
   describe 'POST #create' do
@@ -30,7 +30,7 @@ RSpec.describe SubscriptionsController, type: :controller do
       end
       it 'user cant delete another user answer' do
         sign_in(user2)
-        expect { delete :destroy, id: subscription, format: :js }.to_not change(Subscription, :count)
+        expect { delete :destroy, id: subscription.id, format: :js }.to_not change(Subscription, :count)
       end
     end
   end

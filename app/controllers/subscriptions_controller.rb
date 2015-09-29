@@ -9,8 +9,8 @@ class SubscriptionsController < ApplicationController
   end
 
   def destroy
-    @question = Question.find()
-    @subscription = Subscription.find(params[:id]).where(user: current_user, question: @question).first
+    @subscription = Subscription.find(params[:id])
+    @question = @subscription.question
     respond_with @subscription.destroy
   end
 end

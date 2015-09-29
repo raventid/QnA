@@ -3,7 +3,7 @@ class AnswerNoticeJob < ActiveJob::Base
 
   def perform(answer)
     answer.question.subscriptions.find_each do |subscription|
-      SubscriptionMailer.notice(subscription.user, answer).deliver_later
+      SubscriptionMailer.notice(subscription.user, answer).deliver_now
     end
   end
 end
