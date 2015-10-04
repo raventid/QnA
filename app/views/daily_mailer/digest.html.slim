@@ -1,0 +1,4 @@
+|DailyMailer#digest
+p Notification! Questions list created by 24 hours
+= @questions.each do |question|
+  p= link_to question.title, question_path(question)

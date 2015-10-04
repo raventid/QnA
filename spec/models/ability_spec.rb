@@ -75,7 +75,13 @@ describe Ability do
       it { should be_able_to :me, User }
     end
 
+    context "Subscription" do
+      let(:user) { create(:user) }
+      let(:subscription) { create(:subscription, user: user) }
 
+      it { should be_able_to :create, Subscription }
+      it { should be_able_to :destroy, Subscription, user: user }
+    end
   end
 
   describe "admin" do

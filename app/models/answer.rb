@@ -28,8 +28,9 @@ class Answer < ActiveRecord::Base
   end
 
   def create_subscription_for_author
-    unless Subscription.where(user: self.user, question: self.question).first
-      Subscription.create(user: self.user, question: self.question)
-    end
+    Subscription.find_or_initialize_by(user: self.user, question: self.question)
+    # unless Subscription.where(user: self.user, question: self.question).first
+    #   Subscription.create(user: self.user, question: self.question)
+    # end
   end
 end
