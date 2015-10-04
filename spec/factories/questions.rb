@@ -21,4 +21,10 @@ FactoryGirl.define do
     user
   end
 
+  factory :old_question, class: "Question" do
+    title "QuestionFactoryGirlTitle"
+    body "QuestionFactoryGirlText"
+    created_at { 1.day.ago }
+  end
+
 end
