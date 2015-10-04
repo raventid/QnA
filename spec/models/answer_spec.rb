@@ -38,4 +38,16 @@ RSpec.describe Answer, type: :model do
 
     end
   end
+
+  # describe '#create_subscription_for_author' do
+  #   let(:user) { create(:user) }
+  #   let(:answer) { create(:answer) }
+  #
+  #   it 'should return subscription if it exist' do
+  #     expect(answer.create_subscription_for_author(user, answer.question)).to be_a Subscription
+  #   end
+  #   it 'should create new subscription if it does not exist' do
+  #     expect(answer.create_subscription_for_author(user, answer.question)).to be_a Subscription
+  #   end
+  # end
 end
