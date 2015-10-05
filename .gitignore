@@ -28,3 +28,8 @@ qna.sublime*
 
 #Upload folder
 public/uploads/
+
+
+# Ignore sphinx files
+config/*.sphinx.conf
+db/sphinx
