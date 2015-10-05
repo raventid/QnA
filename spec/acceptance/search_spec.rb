@@ -12,7 +12,7 @@ feature 'User can search', %q{
   given!(:question) { create :question, body: 'gotcha! question' }
   given!(:answer) { create :answer, body: 'gotcha! answer' }
   given!(:comment) do
-    create :comment, body: 'gotcha! comment', commentable: question, commentable_type: 'Question'
+    create :comment, comment_body: 'gotcha! comment', commentable: question, commentable_type: 'Question'
   end
   given!(:user) { create :user, email: 'gotcha!@example.com' }
 
@@ -21,13 +21,13 @@ feature 'User can search', %q{
       visit root_path
 
       fill_in 'search_query', with: 'gotcha!'
-      select 'All', from: 'search_filter'
+      select 'None', from: 'search_filter'
       click_on 'Search'
 
       within '.result' do
         expect(page).to have_content question.body
         expect(page).to have_content answer.body
-        expect(page).to have_content comment.body
+        expect(page).to have_content comment.comment_body
         expect(page).to have_content user.email
       end
     end
@@ -44,7 +44,7 @@ feature 'User can search', %q{
       within '.result' do
         expect(page).to have_content question.body
         expect(page).to_not have_content answer.body
-        expect(page).to_not have_content comment.body
+        expect(page).to_not have_content comment.comment_body
         expect(page).to_not have_content user.email
       end
     end
@@ -61,7 +61,7 @@ feature 'User can search', %q{
       within '.result' do
         expect(page).to_not have_content question.body
         expect(page).to have_content answer.body
-        expect(page).to_not have_content comment.body
+        expect(page).to_not have_content comment.comment_body
         expect(page).to_not have_content user.email
       end
     end
@@ -78,7 +78,7 @@ feature 'User can search', %q{
       within '.result' do
         expect(page).to_not have_content question.body
         expect(page).to_not have_content answer.body
-        expect(page).to have_content comment.body
+        expect(page).to have_content comment.comment_body
         expect(page).to_not have_content user.email
       end
     end
@@ -95,7 +95,7 @@ feature 'User can search', %q{
       within '.result' do
         expect(page).to_not have_content question.body
         expect(page).to_not have_content answer.body
-        expect(page).to_not have_content comment.body
+        expect(page).to_not have_content comment.comment_body
         expect(page).to have_content user.email
       end
     end
