@@ -77,6 +77,10 @@ gem 'oj_mimic_json'
 gem 'sidekiq'
 gem 'sinatra', '>=1.3.0', require: nil
 
+# For fulltext search
+gem 'mysql2'
+gem 'thinking-sphinx'
+
 group :development do
   # For watching letters in browser
   gem 'letter_opener'

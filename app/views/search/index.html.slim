@@ -1,0 +1,13 @@
+h2 Search results
+
+=>pluralize(@results.count, 'result')
+| found:
+.result
+  - @results.each do |result|
+    - if result.try(:body)
+      = result.body
+    - elsif result.try(:comment_body)
+      = result.comment_body
+    - else
+      = result.email
+    hr

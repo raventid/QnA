@@ -9,6 +9,7 @@ describe Ability do
     it { should be_able_to :read, :all }
     it { should_not be_able_to :crud, :all}
     it { should_not be_able_to :manage, :all }
+    it { should be_able_to :search, Search }
   end
 
   describe "for user" do

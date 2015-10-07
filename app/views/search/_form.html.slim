@@ -1,0 +1,4 @@
+= form_for :search, url: search_path, method: :get do |f|
+  = f.text_field 'query', label: false
+  = f.select 'filter', Search::SEARCHING_SOURCES.each{ |s| [s, s] }, {include_blank: 'None'}, label: false
+  = f.submit 'Search', class: 'btn btn-default navbar-btn'
