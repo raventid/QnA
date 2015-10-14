@@ -12,7 +12,9 @@
 !/log/.keep
 /tmp
 
+# Ignore database and private_pub configuration
 config/database.yml
+config/private_pub.yml
 .idea
 
 #Local gemset and ruby version
