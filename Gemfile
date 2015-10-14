@@ -81,9 +81,20 @@ gem 'sinatra', '>=1.3.0', require: nil
 gem 'mysql2'
 gem 'thinking-sphinx'
 
+# For ENV vars, let it be easy
+gem 'dotenv'
+gem 'dotenv-deployment', require: 'dotenv/deployment'
+
 group :development do
+  # For easy project deploy
+  gem 'capistrano', '~> 3.4.0', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rvm', require: false
+
   # For watching letters in browser
   gem 'letter_opener'
+
   # Quiet assets
   gem 'quiet_assets'
 end
