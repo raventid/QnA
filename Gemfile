@@ -76,6 +76,7 @@ gem 'oj_mimic_json'
 # For background jobs
 gem 'sidekiq'
 gem 'sinatra', '>=1.3.0', require: nil
+gem 'whenever'
 
 # For fulltext search
 gem 'mysql2'
@@ -91,6 +92,7 @@ group :development do
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-rvm', require: false
+  gem 'capistrano-sidekiq', require: false
 
   # For watching letters in browser
   gem 'letter_opener'
