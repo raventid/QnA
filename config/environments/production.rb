@@ -76,4 +76,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Send email from
+  config.email_default_from = "admin@36827.simplecloud.club"
 end
