@@ -1,19 +1,20 @@
-#question-block
-  = render @question
+- cache @question do
+  #question-block
+    = render @question
 
-.answers
-  = render @question.answers
-  /- @question.answers.each do |a|
-    /= render partial: 'answers', locals: {a:a}
-br
+  .answers
+    = render @question.answers
+    /- @question.answers.each do |a|
+      /= render partial: 'answers', locals: {a:a}
+  br
 
-- if user_signed_in?
-  div#create-new-answer
-    = render "new_answer"
--else
-  p To answer the question you need to be signed in.
-br
-  = link_to 'View questions list', questions_path
+  - if user_signed_in?
+    div#create-new-answer
+      = render "new_answer"
+  -else
+    p To answer the question you need to be signed in.
+  br
+    = link_to 'View questions list', questions_path
 
 = subscribe_to "/questions/#{@question.id}/answers"
 = subscribe_to "/questions/#{@question.id}/comments"
