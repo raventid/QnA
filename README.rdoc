@@ -4,6 +4,8 @@ Questions and answers web-application.
 
 Includes:
 
-1) Real-time elements.
-2) Search with a sphinx
-3) Devise authentication
+<ul>
+<li> Real-time elements. </li>
+<li> Search with a sphinx. </li>
+<li> Devise authentication. </li>
+</ul>
