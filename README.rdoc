@@ -8,4 +8,6 @@ Includes:
 <li> Real-time elements. </li>
 <li> Search with a sphinx. </li>
 <li> Devise authentication. </li>
+<li> WebSockets. </li>
+<li> Background jobs. </li>
 </ul>
